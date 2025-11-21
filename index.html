@@ -4,183 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EST 119 - Descargas de Juegos</title>
+  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y Betas">
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --card: #141414;
-      --card-hover: #1e1e1e;
-      --text: #ffffff;
-      --accent: #00c3ff;
-      --success: #00ff9d;
+    :root{--bg:#0a0a0a;--card:#141414;--text:#ffffff;--accent:#00c3ff;--success:#00ff9d;--radius:18px}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);text-align:center;min-height:height 100vh;padding:20px}
+    header{padding:40px 20px 20px}
+    h1{font-size:3.8rem;background:linear-gradient(90deg,#00c3ff,#00ff9d);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:15px}
+    nav{display:flex;justify-content:center;gap:30px;margin:20px 0;flex-wrap:wrap}
+    nav a{color:var(--accent);text-decoration:none;font-size:1.3rem;font-weight:600;padding:10px 20px;border-radius:12px;transition:.3s}
+    nav a:hover{background:#ffffff15;text-shadow:0 0 15px var(--accent)}
+    .hub{display:none;margin-top:20px}
+    .hub.active{display:block}
+    .hub-buttons{display:flex;justify-content:center;gap:15px;margin:30px 0;flex-wrap:wrap}
+    .hub-buttons button{background:var(--card);border:none;padding:14px 28px;color:white;border-radius:12px;cursor:pointer;font-size:1.2rem;font-weight:600;transition:.4s}
+    .hub-buttons button:hover{background:var(--accent);transform:translateY(-4px);box-shadow:0 10px 25px #00000080}
+    #searchBox{width:90%;max-width:600px;padding:16px 20px;margin:20px auto;display:block;border-radius:50px;border:none;background:#1a1a1a;color:white;font-size:1.2rem;outline:none;transition:.3s}
+    #searchBox:focus{box-shadow:0 0 20px var(--accent);transform:scale(1.02)}
+
+    .game-zones{max-width:1100px;margin:0 auto;display:none;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px;padding:10px}
+    .game-zones.active{display:grid}
+    .zone{background:var(--card);padding:30px;border-radius:var(--radius);box-shadow:0 10px 30px #00000090;transition:.4s}
+    .zone:hover{transform:translateY(-8px)}
+    .zone h3{color:var(--accent);font-size:1.8rem;margin-bottom:25px}
+
+    .game-item{background:#0c0c0c;padding:22px;border-radius:14px;margin-bottom:18px;box-shadow:0 5px 15px #00000060;text-align:center}
+    .game-item strong{font-size:1.4rem;display:block;margin-bottom:8px;color:var(--success)}
+    .game-item span{font-size:1rem;color:#aaaaaa;display:block;margin:8px 0}
+    .download-btn{
+      display:block;width:80%;max-width:280px;margin:18px auto 8px;
+      padding:14px;background:var(--accent);color:black;font-weight:bold;
+      text-decoration:none;border-radius:50px;font-size:1.1rem;transition:.4s
+    }
+    .download-btn:hover{
+      background:var(--success);transform:scale(1.08);box-shadow:0 0 20px #00ff9d50
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      text-align: center;
-      min-height: 100vh;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    header { padding: 50px 20px 30px; }
-    h1 {
-      font-size: 3.8rem;
-      background: linear-gradient(90deg, #00c3ff, #00ff9d);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 10px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 1.3rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      background: #ffffff10;
-      text-shadow: 0 0 15px var(--accent);
-    }
-
-    .hub { display: none; margin-top: 20px; }
-    .hub.active { display: block; animation: fadeIn 0.6s; }
-
-    .hub-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .hub-buttons button {
-      background: var(--card);
-      border: none;
-      padding: 14px 28px;
-      font-size: 1.2rem;
-      color: white;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.4s;
-      font-weight: 600;
-    }
-
-    .hub-buttons button:hover {
-      background: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px #00000060;
-    }
-
-    #searchBox {
-      width: 70%;
-      max-width: 600px;
-      padding: 16px 20px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      border: none;
-      outline: none;
-      background: #1a1a1a;
-      color: white;
-      margin-bottom: 40px;
-      transition: 0.3s;
-    }
-
-    #searchBox:focus {
-      box-shadow: 0 0 20px var(--accent);
-      transform: scale(1.02);
-    }
-
-    .game-zones {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      padding: 0 20px;
-    }
-
-    .game-zones.active { display: grid; }
-
-    .zone {
-      background: var(--card);
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 8px 25px #00000080;
-      transition: 0.4s;
-    }
-
-    .zone:hover { transform: translateY(-8px); }
-
-    .zone h3 {
-      margin-bottom: 18px;
-      color: var(--accent);
-      font-size: 1.6rem;
-    }
-
-    .game-item {
-      background: #0f0f0f;
-      padding: 18px;
-      border-radius: 14px;
-      margin-bottom: 15px;
-      transition: 0.3s;
-      border: 1px solid #222;
-    }
-
-    .game-item:hover {
-      border-color: var(--accent);
-      transform: scale(1.03);
-    }
-
-    .download-btn {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 12px 30px;
-      background: var(--accent);
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: 0.3s;
-      font-size: 1.1rem;
-    }
-
-    .download-btn:hover {
-      background: var(--success);
-      transform: scale(1.08);
-      box-shadow: 0 0 15px var(--accent);
-    }
-
-    .contact {
-      margin: 80px auto 40px;
-      padding: 30px;
-      background: var(--card);
-      border-radius: 20px;
-      max-width: 600px;
-      box-shadow: 0 10px 30px #00000090;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2.8rem; }
-      .hub-buttons button { padding: 12px 20px; font-size: 1rem; }
-      #searchBox { width: 90%; }
+    .contact{margin:80px auto;padding:35px;background:var(--card);border-radius:20px;max-width:600px;box-shadow:0 10px 30px #00000090}
+    @media(max-width:600px){
+      h1{font-size:2.8rem}
+      .game-item strong{font-size:1.3rem}
+      .download-btn{width:90%;font-size:1rem}
     }
   </style>
 </head>
@@ -194,14 +58,12 @@
     </nav>
   </header>
 
-  <!-- HOME -->
   <section id="home" class="hub active">
     <h2>Bienvenido a EST 119</h2>
-    <p>El mejor lugar para descargar juegos gratis y actualizados</p>
-    <p style="margin-top: 20px; font-size: 1.3rem; color: var(--accent);">¡Haz clic en "Hub de Juegos" y empieza a descargar!</p>
+    <p>Descargas rápidas y seguras de juegos para PC</p>
+    <p style="margin-top:25px;font-size:1.4rem;color:var(--accent)">→ Ve al Hub de Juegos y elige tu categoría</p>
   </section>
 
-  <!-- HUB DE JUEGOS -->
   <section id="hub" class="hub">
     <h2>Hub de Juegos</h2>
 
@@ -211,23 +73,29 @@
       <button onclick="showCategory('beta')">Beta / Pruebas</button>
     </div>
 
-    <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()" />
+    <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()">
 
     <!-- SINGLE PLAYER -->
-    <div id="single" class="game-zones">
+    <div id="single" class="game-zones active">
       <div class="zone">
         <h3>Single Player</h3>
+
         <div class="game-item" data-name="gta san andreas">
-          <strong>GTA San Andreas</strong><br>Tamaño: 4.1 GB
+          <strong>GTA San Andreas</strong>
+          <span>Tamaño: 4.1 GB</span>
           <a class="download-btn" href="https://www.mediafire.com/file/abcd1234/GTA_San_Andreas_PC/file" target="_blank" rel="noopener">Descargar</a>
         </div>
+
         <div class="game-item" data-name="minecraft">
-          <strong>Minecraft 1.21</strong><br>Full + Mods
+          <strong>Minecraft 1.21</strong>
+          <span>Full + Mods + Shaders</span>
           <a class="download-btn" href="https://www.mediafire.com/file/xyz789/Minecraft_1.21_Full/file" target="_blank" rel="noopener">Descargar</a>
         </div>
+
         <div class="game-item" data-name="the witcher">
-          <strong>The Witcher 3</strong><br>Edición GOTY
-          <a class="download-btn" href="https://www.mediafire.com/file/klm456/The_Witcher_3_GOTY/file" target="_blank" rel="noopener">Descargar</a>
+          <strong>The Witcher 3</strong>
+          <span>Edición GOTY - Español</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/witcher3/GOTY_Completo/file" target="_blank" rel="noopener">Descargar</a>
         </div>
       </div>
     </div>
@@ -236,85 +104,68 @@
     <div id="multi" class="game-zones">
       <div class="zone">
         <h3>Multiplayer</h3>
+
         <div class="game-item" data-name="juego multi 1">
-          <strong>Juego Multi 1</strong><br>Servidor 24/7
+          <strong>Juego Multi 1</strong>
+          <span>Servidor 24/7 - Actualizado</span>
           <a class="download-btn" href="https://www.mediafire.com/file/multi001/Juego_Multi_1/file" target="_blank" rel="noopener">Descargar</a>
         </div>
+
         <div class="game-item" data-name="among us">
-          <strong>Among Us PC</strong><br>v2025 + Todos los skins
-          <a class="download-btn" href="https://www.mediafire.com/file/among2025/Among_Us_Ultimate/file" target="_blank" rel="noopener">Descargar</a>
-        </div>
-        <div class="game-item" data-name="rocket league">
-          <strong>Rocket League</strong><br>Online Crack
-          <a class="download-btn" href="https://www.mediafire.com/file/rocket123/Rocket_League_2025/file" target="_blank" rel="noopener">Descargar</a>
+          <strong>Among Us PC</strong>
+          <span>v2025 + Todos los skins</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/among2025/Among_Us_2025/file" target="_blank" rel="noopener">Descargar</a>
         </div>
       </div>
     </div>
 
-    <!-- BETA / TEST -->
+    <!-- BETA -->
     <div id="beta" class="game-zones">
       <div class="zone">
         <h3>Beta / Pruebas</h3>
+
         <div class="game-item" data-name="nuevo shooter">
-          <strong>Nuevo Shooter FPS</strong><br>Beta cerrada
+          <strong>Nuevo Shooter FPS</strong>
+          <span>Beta cerrada - Exclusivo</span>
           <a class="download-btn" href="https://www.mediafire.com/file/beta001/Nuevo_Shooter_Beta/file" target="_blank" rel="noopener">Descargar</a>
-        </div>
-        <div class="game-item" data-name="survival craft">
-          <strong>Survival Craft Online</strong><br>Alpha 0.9
-          <a class="download-btn" href="https://www.mediafire.com/file/alpha99/Survival_Craft_Alpha/file" target="_blank" rel="noopener">Descargar</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACTO -->
   <section class="contact">
-    <h2>¿No encuentras tu juego?</h2>
-    <p>Pídelo por WhatsApp o correo y te lo subimos en menos de 24h</p>
+    <h2>¿Quieres un juego que no está?</h2>
+    <p>Mándanos mensaje y lo subimos en menos de 24h</p>
     <p><strong>WhatsApp:</strong> +52 443 563 7315</p>
-    <p><strong>Correo:</strong> dogopan25453345@gmail.com</p>
   </section>
 
   <script>
-    function showHome() {
+    function showHome(){
       document.getElementById('home').classList.add('active');
       document.getElementById('hub').classList.remove('active');
-      document.querySelectorAll('.game-zones').forEach(g => g.classList.remove('active'));
+      document.querySelectorAll('.game-zones').forEach(g=>g.classList.remove('active'));
     }
-
-    function showHub() {
+    function showHub(){
       document.getElementById('hub').classList.add('active');
       document.getElementById('home').classList.remove('active');
     }
-
-    function showCategory(id) {
-      document.querySelectorAll('.game-zones').forEach(div => div.classList.remove('active'));
+    function showCategory(id){
+      document.querySelectorAll('.game-zones').forEach(z=>z.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
-
-    function searchGames() {
-      const input = document.getElementById("searchBox").value.toLowerCase().trim();
+    function searchGames(){
+      const query = document.getElementById("searchBox").value.toLowerCase().trim();
       const items = document.querySelectorAll(".game-item");
-
-      if (!input) {
-        items.forEach(it => it.style.display = "block");
-        return;
-      }
-
       items.forEach(item => {
         const name = (item.getAttribute("data-name") || "").toLowerCase();
-        item.style.display = name.includes(input) ? "block" : "none";
+        item.style.display = name.includes(query) ? "block" : "none";
       });
-
-      // Mostrar las categorías que tengan resultados visibles
-      ['single', 'multi', 'beta'].forEach(z => {
-        const grid = document.getElementById(z);
-        const hasVisible = Array.from(grid.querySelectorAll('.game-item')).some(i => i.style.display !== "none");
-        if (hasVisible) grid.classList.add('active');
-        else grid.classList.remove('active');
+      ['single','multi','beta'].forEach(cat => {
+        const zone = document.getElementById(cat);
+        const visible = Array.from(zone.querySelectorAll('.game-item')).some(i => i.style.display !== "none");
+        zone.classList.toggle('active', visible);
       });
-
-      showHub();
+      if(query) showHub();
     }
   </script>
 </body>
