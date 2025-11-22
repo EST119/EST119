@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EST 119 - Descargas de Juegos</title>
-  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y Betas">
+  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más">
   <style>
     :root{--bg:#0a0a0a;--card:#141414;--text:#ffffff;--accent:#00c3ff;--success:#00ff9d;--radius:18px}
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);text-align:center;min-height:height 100vh;padding:20px}
+    body{font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);text-align:center;min-height:100vh;padding:20px}
     header{padding:40px 20px 20px}
     h1{font-size:3.8rem;background:linear-gradient(90deg,#00c3ff,#00ff9d);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:15px}
     nav{display:flex;justify-content:center;gap:30px;margin:20px 0;flex-wrap:wrap}
@@ -31,14 +31,13 @@
     .game-item{background:#0c0c0c;padding:22px;border-radius:14px;margin-bottom:18px;box-shadow:0 5px 15px #00000060;text-align:center}
     .game-item strong{font-size:1.4rem;display:block;margin-bottom:8px;color:var(--success)}
     .game-item span{font-size:1rem;color:#aaaaaa;display:block;margin:8px 0}
-    .download-btn{
-      display:block;width:80%;max-width:280px;margin:18px auto 8px;
-      padding:14px;background:var(--accent);color:black;font-weight:bold;
-      text-decoration:none;border-radius:50px;font-size:1.1rem;transition:.4s
-    }
-    .download-btn:hover{
-      background:var(--success);transform:scale(1.08);box-shadow:0 0 20px #00ff9d50
-    }
+    .download-btn{display:block;width:80%;max-width:280px;margin:18px auto 8px;padding:14px;background:var(--accent);color:black;font-weight:bold;text-decoration:none;border-radius:50px;font-size:1.1rem;transition:.4s}
+    .download-btn:hover{background:var(--success);transform:scale(1.08);box-shadow:0 0 20px #00ff9d50}
+
+    /* NUEVA SECCIÓN PROPÓSITOS */
+    #propositos .zone{background:linear-gradient(135deg,#141414,#1e1e1e);padding:40px;border-radius:20px}
+    #propositos p{font-size:1.15rem;line-height:1.8;margin:18px 0;color:#cccccc}
+    #propositos strong{color:var(--accent)}
 
     .contact{margin:80px auto;padding:35px;background:var(--card);border-radius:20px;max-width:600px;box-shadow:0 10px 30px #00000090}
     @media(max-width:600px){
@@ -54,7 +53,7 @@
     <h1>EST 119</h1>
     <nav>
       <a href="#" onclick="showHome()">Home</a>
-      <a href="#" onclick="showHub()">Hub de Juegos</a>
+      <a href="#" onclick="showHub()">Juegos</a>
     </nav>
   </header>
 
@@ -65,37 +64,29 @@
   </section>
 
   <section id="hub" class="hub">
-    <h2>Hub de Juegos</h2>
+    <h2>Juegos</h2>
 
     <div class="hub-buttons">
       <button onclick="showCategory('single')">Single Player</button>
       <button onclick="showCategory('multi')">Multiplayer</button>
-      <button onclick="showCategory('beta')">Beta / Pruebas</button>
+      <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
 
     <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()">
 
     <!-- SINGLE PLAYER -->
-    <div id="single" class="game-zones active">
+    <div id="single" class="game-zones">
       <div class="zone">
         <h3>Single Player</h3>
-
         <div class="game-item" data-name="gta san andreas">
           <strong>GTA San Andreas</strong>
-          <span>Tamaño: 4.1 GB</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/abcd1234/GTA_San_Andreas_PC/file" target="_blank" rel="noopener">Descargar</a>
+          <span>Tamaño: 3.86 GB</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" target="_blank" rel="noopener">Descargar</a>
         </div>
-
-        <div class="game-item" data-name="minecraft">
-          <strong>Minecraft 1.21</strong>
-          <span>Full + Mods + Shaders</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/xyz789/Minecraft_1.21_Full/file" target="_blank" rel="noopener">Descargar</a>
-        </div>
-
-        <div class="game-item" data-name="the witcher">
-          <strong>The Witcher 3</strong>
-          <span>Edición GOTY - Español</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/witcher3/GOTY_Completo/file" target="_blank" rel="noopener">Descargar</a>
+        <div class="game-item" data-name="gta vice city">
+          <strong>GTA Vice City </strong>
+          <span>Tamaño: 1.46 GB</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" target="_blank" rel="noopener">Descargar</a>
         </div>
       </div>
     </div>
@@ -104,13 +95,11 @@
     <div id="multi" class="game-zones">
       <div class="zone">
         <h3>Multiplayer</h3>
-
         <div class="game-item" data-name="juego multi 1">
           <strong>Juego Multi 1</strong>
           <span>Servidor 24/7 - Actualizado</span>
           <a class="download-btn" href="https://www.mediafire.com/file/multi001/Juego_Multi_1/file" target="_blank" rel="noopener">Descargar</a>
         </div>
-
         <div class="game-item" data-name="among us">
           <strong>Among Us PC</strong>
           <span>v2025 + Todos los skins</span>
@@ -119,23 +108,26 @@
       </div>
     </div>
 
-    <!-- BETA -->
-    <div id="beta" class="game-zones">
+    <!-- PROPÓSITOS (EDITA ESTE TEXTO COMO QUIERAS) -->
+    <div id="propositos" class="game-zones">
       <div class="zone">
-        <h3>Beta / Pruebas</h3>
-
-        <div class="game-item" data-name="nuevo shooter">
-          <strong>Nuevo Shooter FPS</strong>
-          <span>Beta cerrada - Exclusivo</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/beta001/Nuevo_Shooter_Beta/file" target="_blank" rel="noopener">Descargar</a>
-        </div>
+        <h3>Propósitos</h3>
+        <p>¡Bienvenido a EST 119!</p>
+        <p>Esta página fue creada con el único propósito de <strong>compartir juegos gratis</strong> y ayudar a la comunidad que no puede comprarlos.</p>
+        <p>Aquí encontrarás:</p>
+        <p>→ Juegos actualizados y probados<br>
+        → Sin virus ni archivos falsos<br>
+        → Soporte por WhatsApp 24/7<br>
+        → Peticiones de juegos (te lo subimos en menos de 24h)</p>
+        <p>Si te gusta el proyecto, compártelo con tus amigos</p>
+        <p>¡Gracias por confiar en EST 119!</p>
       </div>
     </div>
   </section>
 
   <section class="contact">
     <h2>¿Quieres un juego que no está?</h2>
-    <p>Mándanos mensaje y lo subimos en menos de 24h</p>
+    <p>Escríbeme y lo subimos rapidísimo</p>
     <p><strong>WhatsApp:</strong> +52 443 563 7315</p>
   </section>
 
@@ -160,10 +152,10 @@
         const name = (item.getAttribute("data-name") || "").toLowerCase();
         item.style.display = name.includes(query) ? "block" : "none";
       });
-      ['single','multi','beta'].forEach(cat => {
+      ['single','multi','propositos'].forEach(cat => {
         const zone = document.getElementById(cat);
         const visible = Array.from(zone.querySelectorAll('.game-item')).some(i => i.style.display !== "none");
-        zone.classList.toggle('active', visible);
+        if (cat !== 'propositos') zone.classList.toggle('active', visible);
       });
       if(query) showHub();
     }
