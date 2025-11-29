@@ -1,75 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- ============================================= -->
+  <!-- METADATOS BÁSICOS -->
+  <!-- ============================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EST 119 - Games</title>
-  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más">
+  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más" />
+  <meta name="theme-color" content="#00c3ff" />
 
-  <!-- FAVICON (tu logo en la pestaña del navegador) -->
-  <link rel="icon" type="image/x-icon" href="Assets/logo.ico">
+  <!-- ============================================= -->
+  <!-- FAVICON (FUNCIONA 100% EN GITHUB PAGES) -->
+  <!-- ============================================= -->
+  <link rel="icon"       href="/EST119/Assets/logo.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/EST119/Assets/logo.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/EST119/Assets/logo.ico">
+  <!-- El ?v=7 es solo para evitar caché del navegador. Cámbialo cuando actualices el logo -->
+  <link rel="icon"       href="/EST119/Assets/logo.ico?v=7" type="image/x-icon">
 
+  <!-- ============================================= -->
+  <!-- ESTILOS CSS -->
+  <!-- ============================================= -->
   <style>
-    :root{--bg:#0a0a0a;--card:#141414;--text:#ffffff;--accent:#00c3ff;--success:#00ff9d;--radius:18px}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
-    
-    .sidebar{width:260px;background:#0f0f0f;padding:30px 20px;position:fixed;height:100vh;overflow-y:auto;border-right:1px solid #222}
-    .sidebar h2{font-size:2rem;background:linear-gradient(90deg,#00c3ff,#00ff9d);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:40px}
-    .sidebar a{display:block;color:#aaa;text-decoration:none;font-size:1.2rem;padding:14px 20px;margin:8px 0;border-radius:12px;transition:.3s}
-    .sidebar a:hover,.sidebar a.active{background:var(--accent);color:black;font-weight:600}
-
-    .main{margin-left:260px;width:calc(100% - 260px);padding:40px;background:linear-gradient(135deg,#0a0a0a,#111)}
-
-    .top-buttons{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:40px}
-    .top-buttons button{background:var(--card);border:none;padding:16px 32px;color:white;font-size:1.3rem;font-weight:600;border-radius:14px;cursor:pointer;min-width:200px;transition:.4s}
-    .top-buttons button:hover{background:var(--accent);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,195,255,0.3)}
-
-    #searchBox{width:90%;max-width:700px;padding:18px 25px;margin:0 auto 40px;display:block;border-radius:50px;border:none;background:#1a1a1a;color:white;font-size:1.2rem;outline:none}
-    #searchBox:focus{box-shadow:0 0 25px var(--accent)}
-
-    .game-zones{max-width:1200px;margin:0 auto;display:none;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:30px}
-    .game-zones.active{display:grid}
-
-    .zone{background:var(--card);padding:35px;border-radius:var(--radius);box-shadow:0 10px 30px #000000a0}
-    .zone h3{color:var(--accent);font-size:2rem;margin-bottom:30px;text-align:center}
-
-    .game-item{background:#0c0c0c;padding:25px;border-radius:14px;margin-bottom:20px;box-shadow:0 5px 20px #00000080}
-    .game-item strong{font-size:1.5rem;color:var(--success);display:block;margin-bottom:10px}
-    .game-item span{color:#bbbbbb;display:block;margin:12px 0}
-
-    .download-btn{
-      display:block;
-      width:85%;
-      margin:20px auto 0;
-      padding:16px;
-      background:var(--accent);
-      color:black;
-      font-weight:bold;
-      text-decoration:none;
-      border-radius:50px;
-      font-size:1.2rem;
-      transition:.4s;
-      text-align:center;        /* Texto centrado */
-      line-height:1.6;          /* Centrado vertical perfecto */
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --text: #ffffff;
+      --accent: #00c3ff;
+      --success: #00ff9d;
+      --radius: 18px;
     }
-    .download-btn:hover{background:var(--success);transform:scale(1.08);box-shadow:0 0 25px #00ff9d60}
 
-    #propositos .zone{background:linear-gradient(135deg,#141414,#1e1e1e);text-align:left;font-size:1.2rem;line-height:1.8}
-    #propositos p{margin:18px 0;color:#cccccc}
-    #propositos strong{color:var(--accent)}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .contact{margin:100px auto 50px;padding:40px;background:var(--card);border-radius:20px;max-width:700px;box-shadow:0 15px 40px #000000c0}
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
 
-    @media(max-width:900px){
-      .sidebar{position:relative;width:100%;height:auto;border-right:none;border-bottom:1px solid #222}
-      .main{margin-left:0;width:100%}
-      body{flex-direction:column}
+    /* ====================== SIDEBAR ====================== */
+    .sidebar {
+      width: 260px;
+      background: #0f0f0f;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #222;
+    }
+
+    .sidebar h2 {
+      font-size: 2rem;
+      background: linear-gradient(90deg, #00c3ff, #00ff9d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 12px;
+      transition: .3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: var(--accent);
+      color: black;
+      font-weight: 600;
+    }
+
+    /* ====================== MAIN ====================== */
+    .main {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      padding: 40px;
+      background: linear-gradient(135deg, #0a0a0a, #111);
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .top-buttons button {
+      background: var(--card);
+      border: none;
+      padding: 16px 32px;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border-radius: 14px;
+      cursor: pointer;
+      min-width: 200px;
+      transition: .4s;
+    }
+
+    .top-buttons button:hover {
+      background: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 195, 255, 0.3);
+    }
+
+    #searchBox {
+      width: 90%;
+      max-width: 700px;
+      padding: 18px 25px;
+      margin: 0 auto 40px;
+      display: block;
+      border-radius: 50px;
+      border: none;
+      background: #1a1a1a;
+      color: white;
+      font-size: 1.2rem;
+      outline: none;
+    }
+
+    #searchBox:focus {
+      box-shadow: 0 0 25px var(--accent);
+    }
+
+    .game-zones {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+    }
+
+    .game-zones.active { display: grid; }
+
+    .zone {
+      background: var(--card);
+      padding: 35px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px #000000a0;
+    }
+
+    .zone h3 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .game-item {
+      background: #0c0c0c;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px #00000080;
+    }
+
+    .game-item strong {
+      font-size: 1.5rem;
+      color: var(--success);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .game-item span {
+      color: #bbbbbb;
+      display: block;
+      margin: 12px 0;
+    }
+
+    .download-btn {
+      display: block;
+      width: 85%;
+      margin: 20px auto 0;
+      padding: 16px;
+      background: var(--accent);
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      text-align: center;
+      line-height: 1.6;
+      transition: .4s;
+    }
+
+    .download-btn:hover {
+      background: var(--success);
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #00ff9d60;
+    }
+
+    #propositos .zone {
+      background: linear-gradient(135deg, #141414, #1e1e1e);
+      text-align: left;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    #propositos p { margin: 18px 0; color: #cccccc; }
+    #propositos strong { color: var(--accent); }
+
+    .contact {
+      margin: 100px auto 50px;
+      padding: 40px;
+      background: var(--card);
+      border-radius: 20px;
+      max-width: 700px;
+      box-shadow: 0 15px 40px #000000c0;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222; }
+      .main { margin-left: 0; width: 100%; }
+      body { flex-direction: column; }
     }
   </style>
 </head>
+
 <body>
 
+  <!-- ====================== SIDEBAR ====================== -->
   <div class="sidebar">
     <h2>EST 119</h2>
     <a href="#" class="active" onclick="showCategory('single')">Single Player</a>
@@ -77,17 +238,20 @@
     <a href="#" onclick="showCategory('propositos')">Propósitos</a>
   </div>
 
+  <!-- ====================== CONTENIDO PRINCIPAL ====================== -->
   <div class="main">
 
+    <!-- Botones superiores -->
     <div class="top-buttons">
       <button onclick="showCategory('single')">Single Player</button>
       <button onclick="showCategory('multi')">Multiplayer</button>
       <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
 
+    <!-- Buscador -->
     <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()">
 
-    <!-- SINGLE PLAYER -->
+    <!-- ====================== SINGLE PLAYER ====================== -->
     <div id="single" class="game-zones active">
       <div class="zone">
         <h3>Single Player</h3>
@@ -118,7 +282,7 @@
       </div>
     </div>
 
-    <!-- MULTIPLAYER -->
+    <!-- ====================== MULTIPLAYER ====================== -->
     <div id="multi" class="game-zones">
       <div class="zone">
         <h3>Multiplayer</h3>
@@ -126,7 +290,7 @@
       </div>
     </div>
 
-    <!-- PROPÓSITOS -->
+    <!-- ====================== PROPÓSITOS ====================== -->
     <div id="propositos" class="game-zones">
       <div class="zone">
         <h3>Propósitos</h3>
@@ -142,6 +306,7 @@
       </div>
     </div>
 
+    <!-- ====================== CONTACTO ====================== -->
     <div class="contact">
       <h2>¿Quieres un juego que no está?</h2>
       <p>Escríbeme y lo subimos rapidísimo</p>
@@ -150,22 +315,29 @@
 
   </div>
 
+  <!-- ============================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ============================================= -->
   <script>
-    function showCategory(id){
+    function showCategory(id) {
+      // Ocultar todas las categorías
       document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
+      // Mostrar la seleccionada
       document.getElementById(id).classList.add('active');
+
+      // Resaltar enlace del sidebar
       document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
       document.querySelector(`.sidebar a[onclick="showCategory('${id}')"]`).classList.add('active');
     }
 
-    function searchGames(){
+    function searchGames() {
       const query = document.getElementById("searchBox").value.toLowerCase().trim();
       const items = document.querySelectorAll(".game-item");
       let hasResults = false;
 
       items.forEach(item => {
         const name = (item.getAttribute("data-name") || "").toLowerCase();
-        if(name.includes(query)){
+        if (name.includes(query)) {
           item.style.display = "block";
           hasResults = true;
         } else {
@@ -173,7 +345,8 @@
         }
       });
 
-      if(query){
+      // Si hay búsqueda, mostrar solo singleplayer (donde están los juegos)
+      if (query) {
         document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
         document.getElementById('single').classList.toggle('active', hasResults);
       }
