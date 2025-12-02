@@ -2,295 +2,163 @@
 <html lang="es">
 <head>
   <!-- ============================================= -->
-  <!-- METADATOS BÁSICOS -->
+  <!-- METADATOS Y CONFIGURACIÓN BÁSICA -->
   <!-- ============================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EST 119 - Games</title>
   <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más" />
   <meta name="theme-color" content="#00c3ff" />
+  <link rel="icon" href="/EST119/Assets/logo.ico?v=7" type="image/x-icon">
 
   <!-- ============================================= -->
-  <!-- FAVICON (FUNCIONA 100% EN GITHUB PAGES) -->
-  <!-- ============================================= -->
-  <link rel="icon"       href="/EST119/Assets/logo.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="/EST119/Assets/logo.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/EST119/Assets/logo.ico">
-  <!-- El ?v=7 es solo para evitar caché del navegador. Cámbialo cuando actualices el logo -->
-  <link rel="icon"       href="/EST119/Assets/logo.ico?v=7" type="image/x-icon">
-
-  <!-- ============================================= -->
-  <!-- ESTILOS CSS -->
+  <!-- ESTILOS CSS (todo en uno para GitHub Pages) -->
   <!-- ============================================= -->
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --card: #141414;
-      --text: #ffffff;
-      --accent: #00c3ff;
-      --success: #00ff9d;
-      --radius: 18px;
-    }
+    :root { --bg:#0a0a0a; --card:#141414; --text:#fff; --accent:#00c3ff; --success:#00ff9d; --radius:18px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:"Segoe UI",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* → SIDEBAR IZQUIERDO */
+    .sidebar { width:260px; background:#0f0f0f; padding:30px 20px; position:fixed; height:100vh; overflow-y:auto; border-right:1px solid #222; z-index:100; }
+    .sidebar h2 { font-size:2rem; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent; margin-bottom:40px; }
+    .sidebar a { display:block; color:#aaa; text-decoration:none; font-size:1.2rem; padding:14px 20px; margin:8px 0; border-radius:12px; transition:.3s; }
+    .sidebar a:hover, .sidebar a.active { background:var(--accent); color:black; font-weight:600; }
 
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-    }
+    /* → CONTENIDO PRINCIPAL */
+    .main { margin-left:260px; width:calc(100% - 260px); padding:40px; background:linear-gradient(135deg,#0a0a0a,#111); }
+    .top-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:40px; }
+    .top-buttons button { background:var(--card); border:none; padding:16px 32px; color:white; font-size:1.3rem; font-weight:600; border-radius:14px; cursor:pointer; min-width:200px; transition:.4s; }
+    .top-buttons button:hover { background:var(--accent); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,195,255,0.3); }
 
-    /* ====================== SIDEBAR ====================== */
-    .sidebar {
-      width: 260px;
-      background: #0f0f0f;
-      padding: 30px 20px;
-      position: fixed;
-      height: 100vh;
-      overflow-y: auto;
-      border-right: 1px solid #222;
-    }
+    /* → BUSCADOR */
+    #searchBox { width:90%; max-width:700px; padding:18px 25px; margin:0 auto 40px; display:block; border-radius:50px; border:none; background:#1a1a1a; color:white; font-size:1.2rem; outline:none; }
+    #searchBox:focus { box-shadow:0 0 25px var(--accent); }
 
-    .sidebar h2 {
-      font-size: 2rem;
-      background: linear-gradient(90deg, #00c3ff, #00ff9d);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 40px;
-    }
+    /* → ZONAS DE JUEGOS */
+    .game-zones { max-width:1200px; margin:0 auto; display:none; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:30px; }
+    .game-zones.active { display:grid; }
+    .zone { background:var(--card); padding:35px; border-radius:var(--radius); box-shadow:0 10px 30px #000000a0; }
+    .zone h3 { color:var(--accent); font-size:2rem; margin-bottom:30px; text-align:center; }
+    .game-item { background:#0c0c0c; padding:25px; border-radius:14px; margin-bottom:20px; box-shadow:0 5px 20px #00000080; }
+    .game-item strong { font-size:1.5rem; color:var(--success); display:block; margin-bottom:10px; }
+    .game-item span { color:#bbb; display:block; margin:12px 0; }
+    .download-btn { display:block; width:85%; margin:20px auto 0; padding:16px; background:var(--accent); color:black; font-weight:bold; text-decoration:none; border-radius:50px; font-size:1.2rem; text-align:center; text-align:center; transition:.4s; cursor:pointer; }
+    .download-btn:hover { background:var(--success); transform:scale(1.08); box-shadow:0 0 25px #00ff9d60; }
 
-    .sidebar a {
-      display: block;
-      color: #aaa;
-      text-decoration: none;
-      font-size: 1.2rem;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border-radius: 12px;
-      transition: .3s;
-    }
+    /* → CONTACTO */
+    .contact { margin:100px auto 50px; padding:40px; background:var(--card); border-radius:20px; max-width:700px; box-shadow:0 15px 40px #000000c0; text-align:center; }
 
-    .sidebar a:hover,
-    .sidebar a.active {
-      background: var(--accent);
-      color: black;
-      font-weight: 600;
-    }
+    /* → MODAL DE AVISO (la joya de la corona) */
+    .modal { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.97); align-items:center; justify-content:center; padding:20px; }
+    .modal-content { background:#111; max-width:800px; width:90%; border-radius:20px; padding:30px; color:white; box-shadow:0 0 40px rgba(0,195,255,0.5); max-height:90vh; overflow-y:auto; }
+    .modal-content h2 { font-size:1.9rem; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent; margin:20px 0; text-align:center; }
+    .modal-content p { margin:18px 0; line-height:1.7; }
+    .modal-content strong { color:var(--accent); }
+    .modal-buttons { display:flex; gap:20px; justify-content:center; margin-top:40px; flex-wrap:wrap; }
+    .modal-btn { padding:15px 32px; border:none; border-radius:50px; font-weight:bold; cursor:not-allowed; font-size:1.1rem; min-width:240px; }
+    .btn-cancel { background:#333; color:#888; }
+    .btn-cancel.active { background:#666; color:white; cursor:pointer; }
+    .btn-cancel.active:hover { background:#888; }
+    .btn-continue { background:#333; color:#888; }
+    .btn-continue.active { background:var(--success); color:black; cursor:pointer; }
+    .btn-continue.active:hover { transform:scale(1.05); }
 
-    /* ====================== MAIN ====================== */
-    .main {
-      margin-left: 260px;
-      width: calc(100% - 260px);
-      padding: 40px;
-      background: linear-gradient(135deg, #0a0a0a, #111);
-    }
-
-    .top-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .top-buttons button {
-      background: var(--card);
-      border: none;
-      padding: 16px 32px;
-      color: white;
-      font-size: 1.3rem;
-      font-weight: 600;
-      border-radius: 14px;
-      cursor: pointer;
-      min-width: 200px;
-      transition: .4s;
-    }
-
-    .top-buttons button:hover {
-      background: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 195, 255, 0.3);
-    }
-
-    #searchBox {
-      width: 90%;
-      max-width: 700px;
-      padding: 18px 25px;
-      margin: 0 auto 40px;
-      display: block;
-      border-radius: 50px;
-      border: none;
-      background: #1a1a1a;
-      color: white;
-      font-size: 1.2rem;
-      outline: none;
-    }
-
-    #searchBox:focus {
-      box-shadow: 0 0 25px var(--accent);
-    }
-
-    .game-zones {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 30px;
-    }
-
-    .game-zones.active { display: grid; }
-
-    .zone {
-      background: var(--card);
-      padding: 35px;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px #000000a0;
-    }
-
-    .zone h3 {
-      color: var(--accent);
-      font-size: 2rem;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    .game-item {
-      background: #0c0c0c;
-      padding: 25px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 20px #00000080;
-    }
-
-    .game-item strong {
-      font-size: 1.5rem;
-      color: var(--success);
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .game-item span {
-      color: #bbbbbb;
-      display: block;
-      margin: 12px 0;
-    }
-
-    .download-btn {
-      display: block;
-      width: 85%;
-      margin: 20px auto 0;
-      padding: 16px;
-      background: var(--accent);
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      text-align: center;
-      line-height: 1.6;
-      transition: .4s;
-    }
-
-    .download-btn:hover {
-      background: var(--success);
-      transform: scale(1.08);
-      box-shadow: 0 0 25px #00ff9d60;
-    }
-
-    #propositos .zone {
-      background: linear-gradient(135deg, #141414, #1e1e1e);
-      text-align: left;
-      font-size: 1.2rem;
-      line-height: 1.8;
-    }
-
-    #propositos p { margin: 18px 0; color: #cccccc; }
-    #propositos strong { color: var(--accent); }
-
-    .contact {
-      margin: 100px auto 50px;
-      padding: 40px;
-      background: var(--card);
-      border-radius: 20px;
-      max-width: 700px;
-      box-shadow: 0 15px 40px #000000c0;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222; }
-      .main { margin-left: 0; width: 100%; }
-      body { flex-direction: column; }
+    /* → Responsive */
+    @media (max-width:900px) {
+      .sidebar { position:relative; width:100%; height:auto; border-right:none; border-bottom:1px solid #222; }
+      .main { margin-left:0; width:100%; padding:20px; }
+      body { flex-direction:column; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ====================== SIDEBAR ====================== -->
+  <!-- → MENU LATERAL -->
   <div class="sidebar">
     <h2>EST 119</h2>
-    <a href="#" class="active" onclick="showCategory('single')">Single Player</a>
-    <a href="#" onclick="showCategory('multi')">Multiplayer</a>
+    <a href="#" class="active" onclick="showCategory('juegos')">Juegos</a>
+    <a href="#" onclick="showCategory('emuladores')">Emuladores</a>
+    <a href="#" onclick="showCategory('celulares')">Celulares</a>
+    <a href="#" onclick="showCategory('extra')">Extra</a>
+    <a href="#" onclick="showCategory('programas')">Programas</a>
+    <a href="#" onclick="showCategory('sistemas')">Sistemas</a>
     <a href="#" onclick="showCategory('propositos')">Propósitos</a>
   </div>
 
-  <!-- ====================== CONTENIDO PRINCIPAL ====================== -->
+  <!-- → CONTENIDO PRINCIPAL -->
   <div class="main">
-
-    <!-- Botones superiores -->
+    <!-- Botones rápidos arriba -->
     <div class="top-buttons">
-      <button onclick="showCategory('single')">Single Player</button>
-      <button onclick="showCategory('multi')">Multiplayer</button>
+      <button onclick="showCategory('juegos')">Juegos</button>
+      <button onclick="showCategory('emuladores')">Emuladores</button>
+      <button onclick="showCategory('programas')">Programas</button>
       <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
 
     <!-- Buscador -->
     <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()">
 
-    <!-- ====================== SINGLE PLAYER ====================== -->
-    <div id="single" class="game-zones active">
+    <!-- → SECCIÓN JUEGOS (los 4 originales) -->
+    <div id="juegos" class="game-zones active">
       <div class="zone">
-        <h3>Single Player</h3>
-
+        <h3>Juegos</h3>
         <div class="game-item" data-name="gta san andreas">
           <strong>GTA San Andreas</strong>
           <span>Tamaño: 3.86 GB</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" target="_blank" rel="noopener">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" onclick="openModal(this); return false;">Descargar</a>
         </div>
-
         <div class="game-item" data-name="gta vice city">
           <strong>GTA Vice City</strong>
           <span>Tamaño: 1.46 GB</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" target="_blank" rel="noopener">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" onclick="openModal(this); return false;">Descargar</a>
         </div>
-
         <div class="game-item" data-name="five nights at freddy's">
           <strong>Five Nights At Freddy's</strong>
           <span>Contiene el 1, 2, 3 y 4</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" target="_blank" rel="noopener">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" onclick="openModal(this); return false;">Descargar</a>
         </div>
-
         <div class="game-item" data-name="60 seconds">
           <strong>60 Seconds!</strong>
           <span>Es un juego donde tienes que sobrevivir con lo que puedas agarrar en menos de 60 segundos</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar/file" target="_blank" rel="noopener">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar/file" onclick="openModal(this); return false;">Descargar</a>
         </div>
       </div>
     </div>
 
-    <!-- ====================== MULTIPLAYER ====================== -->
-    <div id="multi" class="game-zones">
+    <!-- → OTRAS SECCIONES (vacías por ahora) -->
+    <div id="emuladores" class="game-zones">
       <div class="zone">
-        <h3>Multiplayer</h3>
-        <p style="color:#888;font-size:1.2rem;text-align:center;">Próximamente más juegos multijugador…</p>
+        <h3>Emuladores</h3>
+        <p style="color:#888;text-align:center;">Próximamente…</p>
+      </div>
+    </div>
+    <div id="celulares" class="game-zones">
+      <div class="zone">
+        <h3>Celulares</h3>
+        <p style="color:#888;text-align:center;">Próximamente…</p>
+      </div>
+    </div>
+    <div id="extra" class="game-zones">
+      <div class="zone">
+        <h3>Extra</h3>
+        <p style="color:#888;text-align:center;">Próximamente…</p>
+      </div>
+    </div>
+    <div id="programas" class="game-zones">
+      <div class="zone">
+        <h3>Programas</h3>
+        <p style="color:#888;text-align:center;">Próximamente…</p>
+      </div>
+    </div>
+    <div id="sistemas" class="game-zones">
+      <div class="zone">
+        <h3>Sistemas</h3>
+        <p style="color:#888;text-align:center;">Próximamente…</p>
       </div>
     </div>
 
-    <!-- ====================== PROPÓSITOS ====================== -->
+    <!-- → PROPÓSITOS -->
     <div id="propositos" class="game-zones">
       <div class="zone">
         <h3>Propósitos</h3>
@@ -306,50 +174,156 @@
       </div>
     </div>
 
-    <!-- ====================== CONTACTO ====================== -->
+    <!-- → CONTACTO -->
     <div class="contact">
       <h2>¿Quieres un juego que no está?</h2>
       <p>Escríbeme y lo subimos rapidísimo</p>
       <p><strong>WhatsApp:</strong> +52 443 563 7315</p>
     </div>
+  </div>
 
+  <!-- → MODAL DE AVISO (la joya de la corona) -->
+  <div id="warningModal" class="modal">
+    <div class="modal-content">
+      <h2>¡SI ES LA PRIMERA VEZ QUE USAS LA PÁGINA DEBES SABER Y LEER ESTO!</h2>
+      
+      <p><strong>Ningún proyecto está subido en "MEGA" ni tiene la contraseña "1235".</strong> Tampoco contienen la extensión ".rar" y un setup de 650 MB!</p>
+      
+      <p style="text-align:center;margin:30px 0;">
+        <img src="/EST119/Assets/publicidad.png?v=7" alt="Publicidad maliciosa" style="max-width:100%;border-radius:12px;box-shadow:0 0 20px rgba(0,195,255,0.4);">
+      </p>
+      
+      <p><strong>(Ejemplo de publicidad maliciosa)</strong></p>
+      <p>Si descargas un archivo con esas condiciones, no es de esta PÁGINA y es una <strong>PUBLICIDAD MALICIOSA CON MALWARE!</strong></p>
+      <p>Tené cuidado, porque mucha gente dice que la página tiene virus solo por no informarse bien y descargar cualquier cosa.</p>
+      
+      <h2 style="margin-top:40px;color:var(--success);">¡SI NO SABES INSTALAR LOS PROYECTOS O TIENES FALLOS!</h2>
+      <p>Te recomiendo ver el <strong>Tutorial de Instalación</strong> para evitar errores frecuentes de extracción, drivers y demás!</p>
+      
+      <h2 style="margin-top:40px;color:var(--accent);">¿LOS JUEGOS TIENEN VIRUS?</h2>
+      <p>No. Esto se debe a los cracks y modificaciones que se realizan. Te recomiendo desactivar tu antivirus, ya que el crack engaña al juego para que permita su uso gratuito, lo cual es detectado por los antivirus. Para obtener más información, te sugiero leer el siguiente texto: <strong>Los antivirus y las detecciones.</strong></p>
+      
+      <h2 style="margin-top:40px;color:#ff5555;">POR ÚLTIMO Y IMPORTANTE</h2>
+      <p>Te recomiendo leer los artículos del apartado de <strong>"EXTRA"</strong>. Allí te podés informar y aprender de muchas otras cosas importantes!</p>
+      
+      <div class="modal-buttons">
+        <button id="skipBtn" class="modal-btn btn-cancel">Esperando 5 segundos...</button>
+        <button id="continueBtn" class="modal-btn btn-continue">Esperando 5 segundos...</button>
+      </div>
+    </div>
   </div>
 
   <!-- ============================================= -->
-  <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT – TODO EL CEREBRO DE LA PÁGINA -->
   <!-- ============================================= -->
   <script>
-    function showCategory(id) {
-      // Ocultar todas las categorías
-      document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
-      // Mostrar la seleccionada
-      document.getElementById(id).classList.add('active');
+    // → COOKIES (para no volver a mostrar el aviso)
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + d.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
 
-      // Resaltar enlace del sidebar
+    function getCookie(name) {
+      const cname = name + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
+      }
+      return "";
+    }
+
+    let currentLink = "";
+
+    // → AL HACER CLIC EN DESCARGAR
+    function openModal(element) {
+      // Si ya aceptó no mostrar más → descarga directa
+      if (getCookie("est119_warning") === "hidden") {
+        window.open(element.getAttribute("href"), "_blank");
+        return;
+      }
+
+      currentLink = element.getAttribute("href");
+      document.getElementById("warningModal").style.display = "flex";
+
+      // Reiniciar botones y contador
+      const skipBtn = document.getElementById("skipBtn");
+      const continueBtn = document.getElementById("continueBtn");
+
+      skipBtn.disabled = true; skipBtn.classList.remove("active"); skipBtn.textContent = "Esperando 5 segundos..."; skipBtn.onclick = null;
+      continueBtn.disabled = true; continueBtn.classList.remove("active"); continueBtn.textContent = "Esperando 5 segundos..."; continueBtn.onclick = null;
+
+      let segundos = 5;
+      const timer = setInterval(() => {
+        segundos--;
+        skipBtn.textContent = `No mostrar este aviso y continuar (${segundos}s)`;
+        continueBtn.textContent = `Continuar y mostrar enlace (${segundos}s)`;
+
+        if (segundos <= 0) {
+          clearInterval(timer);
+          skipBtn.textContent = "No mostrar este aviso y continuar";
+          skipBtn.classList.add("active");
+          skipBtn.disabled = false;
+          skipBtn.onclick = dontShowAgain;
+
+          continueBtn.textContent = "Continuar y mostrar enlace";
+          continueBtn.classList.add("active");
+          continueBtn.disabled = false;
+          continueBtn.onclick = goToLink;
+        }
+      }, 1000);
+    }
+
+    // → Botón "No mostrar más" → guarda cookie, cierra modal y descarga
+    function dontShowAgain() {
+      setCookie("est119_warning", "hidden", 30); // 30 días
+      closeModal();
+      window.open(currentLink, "_blank"); // Ahora SÍ descarga
+    }
+
+    function closeModal() {
+      document.getElementById("warningModal").style.display = "none";
+    }
+
+    function goToLink() {
+      closeModal();
+      window.open(currentLink, "_blank");
+    }
+
+    // → Cambiar categorías
+    function showCategory(id) {
+      document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
       document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
       document.querySelector(`.sidebar a[onclick="showCategory('${id}')"]`).classList.add('active');
     }
 
+    // → Buscador
     function searchGames() {
       const query = document.getElementById("searchBox").value.toLowerCase().trim();
       const items = document.querySelectorAll(".game-item");
-      let hasResults = false;
-
       items.forEach(item => {
         const name = (item.getAttribute("data-name") || "").toLowerCase();
-        if (name.includes(query)) {
-          item.style.display = "block";
-          hasResults = true;
-        } else {
-          item.style.display = "none";
-        }
+        item.style.display = name.includes(query) ? "block" : "none";
       });
-
-      // Si hay búsqueda, mostrar solo singleplayer (donde están los juegos)
       if (query) {
         document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
-        document.getElementById('single').classList.toggle('active', hasResults);
+        document.getElementById('juegos').classList.add('active');
       }
+    }
+
+    // → Si ya tiene cookie → todos los botones descargan directo
+    if (getCookie("est119_warning") === "hidden") {
+      document.querySelectorAll(".download-btn").forEach(btn => {
+        btn.onclick = function(e) {
+          e.preventDefault();
+          window.open(this.getAttribute("href"), "_blank");
+        };
+      });
     }
   </script>
 </body>
