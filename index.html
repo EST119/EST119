@@ -11,6 +11,12 @@
   <meta name="theme-color" content="#00c3ff" />
   <link rel="icon" href="/EST119/Assets/logo.ico?v=7" type="image/x-icon">
 
+  <!-- Open Graph para compartir -->
+  <meta property="og:title" content="EST 119 - Juegos Gratis para PC">
+  <meta property="og:description" content="Descarga GTA, FNAF, emuladores y más totalmente gratis y sin virus">
+  <meta property="og:image" content="/EST119/Assets/logo.png">
+  <meta property="og:url" content="https://tu-dominio.com">
+
   <!-- ============================================= -->
   <!-- ESTILOS CSS (todo en uno para GitHub Pages) -->
   <!-- ============================================= -->
@@ -147,12 +153,12 @@
         <div class="game-item" data-name="60 seconds">
           <strong>60 Seconds!</strong>
           <span>Es un juego donde tienes que sobrevivir con lo que puedas agarrar en menos de 60 segundos</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar/file" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar" onclick="openModal(this); return false;">Descargar</a>
         </div>
         <div class="game-item" data-name="sonic 1 y 2">
           <strong>Sonic 1 Y 2</strong>
           <span>Sonic 1 Y 2 un clasico muy entretenido</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar/file" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar" onclick="openModal(this); return false;">Descargar</a>
         </div>
       </div>
     </div>
@@ -181,6 +187,11 @@
           <strong>Subir Archivos (A La Nube)</strong>
           <span>Subes archivos a la nube</span>
           <a class="download-btn" onclick="openUploadsModal(); return false;">Ver</a>
+        </div>
+        <div class="game-item" data-name="tutorial de instalacion">
+          <strong>Tutorial de instalación</strong>
+          <span>Un simple tutorial de como instalar los juegos</span>
+          <a class="download-btn" onclick="openVideoModal(); return false;">Ver</a>
         </div>
       </div>
     </div>
@@ -261,7 +272,7 @@
     <div class="modal-content">
       <h2>Uploads</h2>
       
-      <button class="close-uploads-btn" onclick="closeUploadsModal()">×</button>
+      <span onclick="closeUploadsModal()" style="position:absolute; right:16px; top:12px; font-size:42px; font-weight:bold; color:#ff3333; cursor:pointer; z-index:10;">×</span>
       
       <div class="loading" id="uploadsLoading">Cargando Uploads...</div>
       <div id="uploads-mainContainer" style="display:none;">
@@ -281,6 +292,28 @@
         </div>
       </div>
       <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect()">
+    </div>
+  </div>
+
+  <!-- MODAL DEL TUTORIAL EN VIDEO -->
+  <div id="videoModal" class="modal">
+    <div class="modal-content" style="max-width:960px; width:95%; padding:20px; background:#0a0a0a; position:relative;">
+      <span onclick="closeVideoModal()" style="position:absolute; right:16px; top:12px; font-size:42px; font-weight:bold; color:#ff3333; cursor:pointer; z-index:10;">×</span>
+      
+      <h2 style="text-align:center; margin:0 0 20px; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent;">
+        Tutorial de Instalación
+      </h2>
+      
+      <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:14px; overflow:hidden; box-shadow:0 10px 40px rgba(0,195,255,0.3);">
+        <video id="tutorialVideo" style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:14px;" controls autoplay>
+          <source src="/EST119/Assets/Tutorial%20de%20instalacion.mp4" type="video/mp4">
+          Tu navegador no soporta video.
+        </video>
+      </div>
+      
+      <div style="text-align:center; margin-top:20px; color:#aaa; font-size:14px;">
+        Si el video no carga, recarga la página o avísame por WhatsApp
+      </div>
     </div>
   </div>
 
@@ -376,14 +409,19 @@
     // → Buscador
     function searchGames() {
       const query = document.getElementById("searchBox").value.toLowerCase().trim();
-      const items = document.querySelectorAll(".game-item");
-      items.forEach(item => {
+      let found = false;
+      document.querySelectorAll(".game-item").forEach(item => {
         const name = (item.getAttribute("data-name") || "").toLowerCase();
-        item.style.display = name.includes(query) ? "block" : "none";
+        if (name.includes(query)) {
+          item.style.display = "block";
+          item.closest('.game-zones').classList.add('active');
+          found = true;
+        } else {
+          item.style.display = "none";
+        }
       });
-      if (query) {
-        document.querySelectorAll('.game-zones').forEach(z => z.classList.remove('active'));
-        document.getElementById('juegos').classList.add('active');
+      if (!found && query) {
+        // opcional: mostrar mensaje “no encontrado”
       }
     }
 
@@ -413,12 +451,13 @@
     setTimeout(() => {
       document.getElementById("uploadsLoading").style.display = "none";
       document.getElementById("uploads-mainContainer").style.display = "block";
-      loadCookieData();
+      loadLocalStorageData();
     }, 800);
 
-    function loadCookieData() {
-      if (document.cookie.includes("elements")) {
-        try { elementsData = JSON.parse(atob(document.cookie.split("elements =")[1].split(";")[0])); } catch(e) { elementsData = {}; }
+    function loadLocalStorageData() {
+      const storedData = localStorage.getItem("est119_uploads");
+      if (storedData) {
+        try { elementsData = JSON.parse(storedData); } catch(e) { elementsData = {}; }
       }
       entry.amount = Object.keys(elementsData).length;
       for (let i = 1; i <= entry.amount; i++) {
@@ -449,13 +488,12 @@
     function deleteEntry(id) {
       document.getElementById(id).remove();
       delete elementsData[id];
-      saveCookie();
+      saveLocalStorage();
       selectEntry("e1");
     }
 
-    function saveCookie() {
-      let exp = new Date(); exp.setFullYear(exp.getFullYear() + 3);
-      document.cookie = "elements =" + btoa(JSON.stringify(elementsData)) + "; expires=" + exp.toUTCString() + "; SameSite=Strict; path=/";
+    function saveLocalStorage() {
+      localStorage.setItem("est119_uploads", JSON.stringify(elementsData));
     }
 
     document.getElementById("download2").addEventListener("click", () => {
@@ -487,12 +525,60 @@
               document.getElementById("entryContainer").appendChild(el);
               elementsData["e" + entry.amount] = { name: file.name, link: d.data.downloadPage };
               selectEntry("e" + entry.amount);
-              saveCookie();
+              saveLocalStorage();
             }
           });
       };
       reader.readAsArrayBuffer(file);
     }
+
+    // → Mostrar modal automáticamente la primera vez
+    window.onload = function() {
+      if (getCookie("est119_warning") !== "hidden") {
+        document.getElementById("warningModal").style.display = "flex";
+        let segundos = 5;
+        const skipBtn = document.getElementById("skipBtn");
+        const continueBtn = document.getElementById("continueBtn");
+        const timer = setInterval(() => {
+          segundos--;
+          skipBtn.textContent = `No mostrar más y cerrar (${segundos}s)`;
+          continueBtn.textContent = `Entendido (${segundos}s)`;
+          if (segundos <= 0) {
+            clearInterval(timer);
+            skipBtn.classList.add("active"); skipBtn.onclick = () => { setCookie("est119_warning", "hidden", 30); closeModal(); };
+            continueBtn.classList.add("active"); continueBtn.onclick = closeModal;
+          }
+        }, 1000);
+      }
+    };
+
+    // === MODAL DEL TUTORIAL DE VIDEO ===
+    function openVideoModal() {
+      document.getElementById("videoModal").style.display = "flex";
+      // Reproducir desde el inicio cada vez que se abre
+      const video = document.getElementById("tutorialVideo");
+      video.currentTime = 0;
+      video.play();
+    }
+
+    function closeVideoModal() {
+      document.getElementById("videoModal").style.display = "none";
+      document.getElementById("tutorialVideo").pause();
+    }
+
+    // Cerrar con la tecla ESC también
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeVideoModal();
+        closeUploadsModal();
+        closeModal();
+      }
+    });
+
+    // BONUS: cuando termine el video, mostrar mensaje opcional
+    document.getElementById("tutorialVideo").addEventListener("ended", function() {
+      alert("¡Tutorial terminado. ¡Ahora ya sabes instalar cualquier juego de EST 119!");
+    });
   </script>
 </body>
 </html>
