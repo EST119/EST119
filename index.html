@@ -241,35 +241,65 @@
     </div>
   </div>
 
-  <!-- → MODAL DE AVISO (la joya de la corona) -->
-  <div id="warningModal" class="modal">
-    <div class="modal-content">
-      <h2>¡SI ES LA PRIMERA VEZ QUE USAS LA PÁGINA DEBES SABER Y LEER ESTO!</h2>
-      
-      <p><strong>Ningún proyecto está subido en "MEGA" ni tiene la contraseña "1235".</strong> Tampoco contienen la extensión ".7z" y un setup de 650 MB los archivos originales de extencion ".rar" y ".zip"!</p>
-      
-      <p style="text-align:center;margin:30px 0;">
-        <img src="/EST119/Assets/publicidad.png" alt="Publicidad maliciosa" style="max-width:100%;border-radius:12px;box-shadow:0 0 20px rgba(0,195,255,0.4);">
-      </p>
-      
-      <p><strong>(Ejemplo de publicidad maliciosa)</strong></p>
-      <p>Si descargas un archivo con esas condiciones, no es de esta PÁGINA y es una <strong>PUBLICIDAD MALICIOSA CON MALWARE!</strong></p>
-      <p>Tené cuidado, porque mucha gente dice que la página tiene virus solo por no informarse bien y descargar cualquier cosa.</p>
-      
-      <h2 style="margin-top:40px;color:var(--success);">¡SI NO SABES INSTALAR LOS PROYECTOS O TIENES FALLOS!</h2>
-      <p>Te recomiendo ver el <strong>Tutorial de Instalación</strong> para evitar errores frecuentes de extracción, drivers y demás!</p>
-      
-      <h2 style="margin-top:40px;color:var(--accent);">¿LOS JUEGOS TIENEN VIRUS?</h2>
-      <p>No. Esto se debe a los cracks y modificaciones que se realizan. Te recomiendo desactivar tu antivirus, ya que el crack engaña al juego para que permita su uso gratuito, lo cual es detectado por los antivirus. Para obtener más información, te sugiero leer el siguiente texto: <strong>Los antivirus y las detecciones.</strong></p>
-      
-      <h2 style="margin-top:40px;color:#ff5555;">POR ÚLTIMO Y IMPORTANTE</h2>
-      <p>Te recomiendo leer los artículos del apartado de <strong>"EXTRA"</strong>. Allí te podés informar y aprender de muchas otras cosas importantes!</p>
-      
-      <div class="modal-buttons">
-        <button id="continueBtn" class="modal-btn btn-continue">Esperando 5 segundos...</button>
-      </div>
-    </div>
-  </div>
+// → MODAL DE AVISO (corregido)
+function openModal(element) {
+  if (getCookie("est119_warning") === "hidden") {
+    window.open(element.getAttribute("href"), "_blank");
+    return;
+  }
+
+  currentLink = element.getAttribute("href");
+  document.getElementById("warningModal").style.display = "flex";
+
+  const skipBtn = document.getElementById("skipBtn");
+  const continueBtn = document.getElementById("continueBtn");
+
+  // Reinicia botones
+  skipBtn.disabled = true; skipBtn.classList.remove("active"); skipBtn.textContent = "Esperando 5 segundos..."; skipBtn.onclick = null;
+  continueBtn.disabled = true; continueBtn.classList.remove("active"); continueBtn.textContent = "Esperando 5 segundos..."; continueBtn.onclick = null;
+
+  let segundos = 5;
+  const timer = setInterval(() => {
+    segundos--;
+    skipBtn.textContent = `No mostrar y continuar (${segundos}s)`;
+    continueBtn.textContent = `Continuar (${segundos}s)`;
+
+    if (segundos <= 0) {
+      clearInterval(timer);
+      skipBtn.textContent = "No mostrar y continuar";
+      skipBtn.classList.add("active");
+      skipBtn.disabled = false;
+      skipBtn.onclick = dontShowAgain;
+
+      continueBtn.textContent = "Continuar";
+      continueBtn.classList.add("active");
+      continueBtn.disabled = false;
+      continueBtn.onclick = goToLink;
+    }
+  }, 1000);
+}
+
+function dontShowAgain() {
+  setCookie("est119_warning", "hidden", 30);
+  closeModal();
+  window.open(currentLink, "_blank");
+}
+
+function closeModal() {
+  document.getElementById("warningModal").style.display = "none";
+}
+
+function goToLink() {
+  closeModal();
+  window.open(currentLink, "_blank");
+}
+
+// Muestra el modal automáticamente la primera vez (al cargar la página)
+window.onload = function() {
+  if (getCookie("est119_warning") !== "hidden") {
+    openModal();  // Llama a openModal sin elemento para mostrar solo el aviso
+  }
+};
 
   <!-- → MODAL DE UPLOADS -->
   <div id="uploadsModal" class="modal">
@@ -310,7 +340,7 @@
       
       <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:14px; overflow:hidden; box-shadow:0 10px 40px rgba(0,195,255,0.3);">
         <video id="tutorialVideo" style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:14px;" controls autoplay>
-          <source src="https://myvidplay.com/d/g42u9ext8ovs" type="video/mp4">
+          <source src="https://drive.google.com/file/d/17CQAFvGKcd3MkpqX5VCcDY-F9OqunPDu/view?usp=sharing" type="video/mp4">
           Tu navegador no soporta video.
         </video>
       </div>
