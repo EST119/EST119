@@ -4,70 +4,286 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EST 119 - Games</title>
-  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más" />
+  <meta name="description" content="Descarga juegos gratis para PC - Singleplayer, Multiplayer y más | 100% probados" />
   <meta name="theme-color" content="#00c3ff" />
   <link rel="icon" href="/EST119/Assets/logo.ico" type="image/x-icon">
-
   <style>
-    :root { --bg:#0a0a0a; --card:#141414; --text:#fff; --accent:#00c3ff; --success:#00ff9d; --radius:18px; }
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --text: #e0e0e0;
+      --accent: #00c3ff;
+      --success: #00ff9d;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:"Segoe UI",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
-
-    .sidebar { width:260px; background:#0f0f0f; padding:30px 20px; position:fixed; height:100vh; overflow-y:auto; border-right:1px solid #222; z-index:100; }
-    .sidebar h2 { font-size:2rem; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent; margin-bottom:40px; }
-    .sidebar a { display:block; color:#aaa; text-decoration:none; font-size:1.2rem; padding:14px 20px; margin:8px 0; border-radius:12px; transition:.3s; }
-    .sidebar a:hover, .sidebar a.active { background:var(--accent); color:black; font-weight:600; }
-
-    .main { margin-left:260px; width:calc(100% - 260px); padding:40px; background:linear-gradient(135deg,#0a0a0a,#111); }
-    .top-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:40px; }
-    .top-buttons button { background:var(--card); border:none; padding:16px 32px; color:white; font-size:1.3rem; font-weight:600; border-radius:14px; cursor:pointer; min-width:200px; transition:.4s; }
-    .top-buttons button:hover { background:var(--accent); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,195,255,0.3); }
-
-    #searchBox { width:90%; max-width:700px; padding:18px 25px; margin:0 auto 40px; display:block; border-radius:50px; border:none; background:#1a1a1a; color:white; font-size:1.2rem; outline:none; }
-    #searchBox:focus { box-shadow:0 0 25px var(--accent); }
-
-    .game-zones { max-width:1200px; margin:0 auto; display:none; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:30px; }
-    .game-zones.active { display:grid; }
-    .zone { background:var(--card); padding:35px; border-radius:var(--radius); box-shadow:0 10px 30px #000000a0; }
-    .zone h3 { color:var(--accent); font-size:2rem; margin-bottom:30px; text-align:center; }
-    .game-item { background:#0c0c0c; padding:25px; border-radius:14px; margin-bottom:20px; box-shadow:0 5px 20px #00000080; }
-    .game-item strong { font-size:1.5rem; color:var(--success); display:block; margin-bottom:10px; }
-    .game-item span { color:#bbb; display:block; margin:12px 0; }
-    .download-btn { display:block; width:85%; margin:20px auto 0; padding:16px; background:var(--accent); color:black; font-weight:bold; text-decoration:none; border-radius:50px; font-size:1.2rem; text-align:center; transition:.4s; cursor:pointer; }
-    .download-btn:hover { background:var(--success); transform:scale(1.08); box-shadow:0 0 25px #00ff9d60; }
-
-    .contact { margin:80px auto 40px; padding:30px; background:var(--card); border-radius:20px; max-width:600px; box-shadow:0 15px 40px #000000c0; text-align:center; }
-
-    /* MODAL GENERAL */
-    .modal { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.97); align-items:center; justify-content:center; padding:20px; overflow-y:auto; }
-    .modal-content { background:#111; max-width:900px; width:90%; border-radius:20px; padding:40px; color:white; box-shadow:0 0 50px rgba(0,195,255,0.6); text-align:center; }
-    .modal-content h2 { font-size:2.2rem; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent; margin:30px 0 15px; }
-    .modal-content p { margin:20px 0; line-height:1.8; font-size:1.15rem; }
-    .modal-content strong { color:var(--accent); }
-    .modal-buttons { display:flex; gap:20px; justify-content:center; margin-top:50px; flex-wrap:wrap; }
-    .modal-btn { padding:16px 36px; border:none; border-radius:50px; font-weight:bold; cursor:not-allowed; font-size:1.2rem; min-width:280px; transition:.3s; }
-    .btn-cancel { background:#333; color:#888; }
-    .btn-cancel.active { background:#666; color:white; cursor:pointer; }
-    .btn-cancel.active:hover { background:#888; }
-    .btn-continue { background:#333; color:#888; }
-    .btn-continue.active { background:var(--success); color:black; cursor:pointer; }
-    .btn-continue.active:hover { transform:scale(1.05); box-shadow:0 0 30px #00ff9d80; }
-
-    /* Version text in bottom-left */
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      line-height: 1.6;
+    }
+    .sidebar {
+      width: 260px;
+      background: #0f0f0f;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #222;
+      z-index: 100;
+    }
+    .sidebar h2 {
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, #00c3ff, #00ff9d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .sidebar a {
+      display: block;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 1.15rem;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 12px;
+      transition: all .3s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      transform: translateX(6px);
+    }
+    .main {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      padding: 40px 30px;
+      background: linear-gradient(135deg, #0a0a0a, #111);
+    }
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .top-buttons button {
+      background: var(--card);
+      border: none;
+      padding: 14px 28px;
+      color: white;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border-radius: 14px;
+      cursor: pointer;
+      min-width: 160px;
+      transition: all .4s;
+    }
+    .top-buttons button:hover {
+      background: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,195,255,0.25);
+    }
+    #searchBox {
+      width: 90%;
+      max-width: 720px;
+      padding: 16px 24px;
+      margin: 0 auto 35px;
+      display: block;
+      border-radius: 50px;
+      border: none;
+      background: #1a1a1a;
+      color: white;
+      font-size: 1.1rem;
+      outline: none;
+      transition: all .3s;
+    }
+    #searchBox:focus {
+      box-shadow: 0 0 20px var(--accent);
+      background: #222;
+    }
+    .game-zones {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .game-zones.active { display: grid; }
+    .zone {
+      background: var(--card);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .zone h3 {
+      color: var(--accent);
+      font-size: 2.1rem;
+      margin-bottom: 28px;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,195,255,0.3);
+    }
+    .game-item {
+      background: #0c0c0c;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 18px #0008;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .game-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 35px rgba(0,195,255,0.2);
+    }
+    .game-item img.cover {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px #000c;
+      transition: transform .4s;
+    }
+    .game-item:hover img.cover { transform: scale(1.05); }
+    .game-item strong {
+      font-size: 1.45rem;
+      color: var(--success);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .game-item span {
+      color: #bbb;
+      display: block;
+      margin: 8px 0;
+      font-size: 0.95rem;
+    }
+    .download-btn {
+      display: block;
+      width: 88%;
+      margin: 16px auto 0;
+      padding: 14px;
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      text-align: center;
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .download-btn:hover {
+      background: var(--success);
+      transform: scale(1.06);
+      box-shadow: 0 0 22px #00ff9d50;
+    }
+    .contact, .placeholder-zone {
+      margin: 70px auto 40px;
+      padding: 32px;
+      background: var(--card);
+      border-radius: 20px;
+      max-width: 640px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .copy-btn {
+      background: #333;
+      color: #0ff;
+      border: 1px solid #0ff8;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,255,157,0.9);
+      color: #000;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: bold;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity .4s, transform .4s;
+      pointer-events: none;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.96);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .modal-content {
+      background: #111;
+      max-width: 920px;
+      width: 92%;
+      border-radius: 20px;
+      padding: 38px;
+      color: white;
+      box-shadow: 0 0 60px rgba(0,195,255,0.5);
+      text-align: center;
+      position: relative;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #000;
+      margin: 20px 0;
+    }
+    .video-container video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    /* Version */
     .version {
       position: fixed;
-      bottom: 10px;
-      left: 10px;
-      color: #aaa;
-      font-size: 0.8rem;
+      bottom: 12px;
+      left: 16px;
+      color: #777;
+      font-size: 0.82rem;
       z-index: 999;
     }
-
-    @media (max-width:900px) {
-      .sidebar { position:relative; width:100%; height:auto; border-bottom:1px solid #222; }
-      .main { margin-left:0; width:100%; padding:20px; }
-      body { flex-direction:column; }
-      .version { left: 20px; }
+    @media (max-width: 960px) {
+      .sidebar { 
+        position: relative; 
+        width: 100%; 
+        height: auto; 
+        border-right: none; 
+        border-bottom: 1px solid #222; 
+        padding: 20px; 
+      }
+      .main { margin-left: 0; width: 100%; padding: 25px 15px; }
+      body { flex-direction: column; }
+      .top-buttons { gap: 12px; }
+      .top-buttons button { min-width: 140px; padding: 12px 20px; font-size: 1rem; }
+      .version { left: 16px; bottom: 8px; }
     }
   </style>
 </head>
@@ -86,7 +302,7 @@
     <a href="#" onclick="showCategory('changelog')">Change Log</a>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL -->
+  <!-- MAIN -->
   <div class="main">
     <div class="top-buttons">
       <button onclick="showCategory('juegos')">Juegos</button>
@@ -95,32 +311,73 @@
       <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
 
-    <input type="text" id="searchBox" placeholder="Buscar juego..." onkeyup="searchGames()">
+    <input type="text" id="searchBox" placeholder="Buscar juego, emulador, programa..." onkeyup="searchGlobal()">
 
     <!-- JUEGOS -->
     <div id="juegos" class="game-zones active">
       <div class="zone">
         <h3>Juegos</h3>
-        <div class="game-item" data-name="gta san andreas"><strong>GTA San Andreas</strong><span>3.86 GB</span><a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" onclick="openModal(this);return false;">Descargar</a></div>
-        <div class="game-item" data-name="gta vice city"><strong>GTA Vice City</strong><span>1.46 GB</span><a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" onclick="openModal(this);return false;">Descargar</a></div>
-        <div class="game-item" data-name="five nights at freddy's"><strong>Five Nights At Freddy's</strong><span>1, 2, 3 y 4</span><a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" onclick="openModal(this);return false;">Descargar</a></div>
-        <div class="game-item" data-name="60 seconds"><strong>60 Seconds!</strong><span>Sobrevive 60 segundos</span><a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar" onclick="openModal(this);return false;">Descargar</a></div>
-        <div class="game-item" data-name="sonic 1 y 2"><strong>Sonic 1 y 2</strong><span>Clásicos</span><a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar" onclick="openModal(this);return false;">Descargar</a></div>
+        <div class="game-item" data-name="gta san andreas">
+          <img class="cover" src="https://www.gtabase.com/rockstar-games/grand-theft-auto-san-andreas/images/artwork/box-art/front-cover-ps2.jpg" alt="GTA San Andreas">
+          <strong>GTA San Andreas</strong>
+          <span>3.86 GB • Acción / Aventura • 2004</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" onclick="openModal(this); return false;">Descargar</a>
+        </div>
+        <div class="game-item" data-name="gta vice city">
+          <img class="cover" src="https://www.gtabase.com/rockstar-games/grand-theft-auto-vice-city/images/artwork/box-art/front-cover-ps2.jpg" alt="GTA Vice City">
+          <strong>GTA Vice City</strong>
+          <span>1.46 GB • Acción / Crimen • 2002</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" onclick="openModal(this); return false;">Descargar</a>
+        </div>
+        <div class="game-item" data-name="five nights at freddy's">
+          <img class="cover" src="https://m.media-amazon.com/images/I/81wZ6k3p3+L._AC_SL1500_.jpg" alt="Five Nights at Freddy's Collection">
+          <strong>Five Nights At Freddy's</strong>
+          <span>1, 2, 3 y 4 • Terror • Pack</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" onclick="openModal(this); return false;">Descargar</a>
+        </div>
+        <div class="game-item" data-name="60 seconds">
+          <img class="cover" src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg" alt="60 Seconds!">
+          <strong>60 Seconds!</strong>
+          <span>Sobrevive el apocalipsis • Aventura</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar" onclick="openModal(this); return false;">Descargar</a>
+        </div>
+        <div class="game-item" data-name="sonic 1 y 2">
+          <img class="cover" src="https://images.igdb.com/igdb/image/upload/t_cover_big/co2wyy.jpg" alt="Sonic 1 & 2">
+          <strong>Sonic 1 y 2</strong>
+          <span>Clásicos • Plataformas</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar" onclick="openModal(this); return false;">Descargar</a>
+        </div>
       </div>
     </div>
 
-    <!-- OTRAS SECCIONES -->
-    <div id="emuladores" class="game-zones"><div class="zone"><h3>Emuladores</h3><p style="color:#888;text-align:center;">Próximamente…</p></div></div>
-    <div id="celulares" class="game-zones"><div class="zone"><h3>Celulares</h3><p style="color:#888;text-align:center;">Próximamente…</p></div></div>
-    <div id="programas" class="game-zones"><div class="zone"><h3>Programas</h3><p style="color:#888;text-align:center;">Próximamente…</p></div></div>
-    <div id="sistemas" class="game-zones"><div class="zone"><h3>Sistemas</h3><p style="color:#888;text-align:center;">Próximamente…</p></div></div>
+    <!-- EMULADORES (placeholder mejorado) -->
+    <div id="emuladores" class="game-zones">
+      <div class="zone placeholder-zone">
+        <h3>Emuladores</h3>
+        <p style="color:#888; font-size:1.1rem;">Próximamente más emuladores (PS2, PSP, Nintendo 64...)</p>
+        <p style="margin-top:20px;">¿Quieres alguno en especial? ¡Pídelo por WhatsApp!</p>
+      </div>
+    </div>
+
+    <!-- Otras categorías vacías con placeholder similar -->
+    <div id="celulares" class="game-zones"><div class="zone placeholder-zone"><h3>Celulares</h3><p style="color:#888;">Próximamente…</p></div></div>
+    <div id="programas" class="game-zones"><div class="zone placeholder-zone"><h3>Programas</h3><p style="color:#888;">Próximamente…</p></div></div>
+    <div id="sistemas" class="game-zones"><div class="zone placeholder-zone"><h3>Sistemas</h3><p style="color:#888;">Próximamente…</p></div></div>
 
     <!-- EXTRA -->
     <div id="extra" class="game-zones">
       <div class="zone">
         <h3>Extra</h3>
-        <div class="game-item"><strong>Tutorial de instalación</strong><span>Cómo instalar correctamente</span><a class="download-btn" onclick="openVideoModal();return false;">Ver</a></div>
-        <div class="game-item"><strong>WinRAR</strong><span>Extractor de archivos</span><a class="download-btn" href="https://www.mediafire.com/file/sfxl2gzzzrjqnmr/Win-rar.exe/file" onclick="openModal(this);return false;">Descargar</a></div>
+        <div class="game-item" data-name="tutorial instalacion">
+          <strong>Tutorial de instalación</strong>
+          <span>Cómo instalar correctamente (video)</span>
+          <a class="download-btn" onclick="openVideoModal(); return false;">Ver Video</a>
+        </div>
+        <div class="game-item" data-name="winrar">
+          <strong>WinRAR</strong>
+          <span>Extractor de archivos .rar / .zip</span>
+          <a class="download-btn" href="https://www.mediafire.com/file/sfxl2gzzzrjqnmr/Win-rar.exe/file" onclick="openModal(this); return false;">Descargar</a>
+        </div>
       </div>
     </div>
 
@@ -128,9 +385,10 @@
     <div id="propositos" class="game-zones">
       <div class="zone">
         <h3>Propósitos</h3>
-        <p>¡Bienvenido a EST 119! Esta página existe para compartir juegos gratis y ayudar a quienes no pueden comprarlos.</p>
-        <p>Juegos 100% probados, sin virus, soporte 24/7 por WhatsApp y cualquier petición en menos de 24h.</p>
-        <p>¡Comparte si te gusta!</p>
+        <p>¡Bienvenido a EST 119! Compartimos juegos gratis para quienes no pueden comprarlos.</p>
+        <p>Juegos probados, sin virus (falso positivo por cracks), soporte 24/7 por WhatsApp.</p>
+        <p>¡Pide cualquier juego y lo subimos rápido!</p>
+        <button class="copy-btn" onclick="copyWhatsApp()">Copiar WhatsApp: +52 443 563 7315</button>
       </div>
     </div>
 
@@ -138,26 +396,26 @@
     <div id="changelog" class="game-zones">
       <div class="zone">
         <h3>Change Log</h3>
-        <ul style="list-style-type: none; text-align:left; color:#bbb; line-height:1.8; padding-left:0;">
-          <li><strong>21/01/2026 - 11:07</strong>: Agregada categoría "Change Log" en la sidebar con lista de cambios.</li>
-          <li><strong>21/01/2026 - 11:08</strong>: Versión actual: v_0.1A (alfa) mostrada en esquina inferior izquierda.</li>
-	  <li><strong>21/01/2026 - 11:10</strong>: Ahora la página tiene sistema de versiones:  
-        - <strong>A</strong> = Alfa (versión inicial, puede tener errores o cosas por pulir)  
-        - <strong>B</strong> = Beta (versión más estable, casi lista pero aún en pruebas)  
-        - Sin letra = Versión final / estable (sin errores graves conocidos)</li>
-          <!-- Agrega más líneas aquí cuando hagas cambios -->
+        <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
+          <li><strong>21/01/2026 - 23:45</strong>: v_0.3.1 - Fix menor: Eliminado loading spinner en video modal, revertido texto de aviso a original con detalles de MEGA/.7z.</li>
+          <li><strong>21/01/2026 - 23:30</strong>: v_0.3A - Carátulas en juegos, búsqueda global, toast, mobile mejorado, video ruta corregida.</li>
+          <li><strong>21/01/2026 - 11:10</strong>: v_0.1A → Sistema de versiones (A=Alfa, B=Beta).</li>
+          <li><strong>21/01/2026 - 11:08</strong>: Agregado modal de advertencia con timer.</li>
+          <li><strong>21/01/2026 - 11:07</strong>: Categoría Change Log creada.</li>
         </ul>
       </div>
     </div>
 
+    <!-- CONTACTO -->
     <div class="contact">
-      <h2>¿Quieres un juego que no está?</h2>
-      <p>Escríbeme y lo subo en minutos</p>
+      <h2>¿Juego que no está? ¡Pídelo!</h2>
+      <p>Lo subo en minutos. Soporte 24/7.</p>
       <p><strong>WhatsApp:</strong> +52 443 563 7315</p>
+      <button class="copy-btn" onclick="copyWhatsApp()">Copiar número</button>
     </div>
   </div>
 
-  <!-- MODAL DE AVISO -->
+  <!-- MODAL AVISO (revertido a texto original) -->
   <div id="warningModal" class="modal">
     <div class="modal-content">
       <h2>¡SI ES LA PRIMERA VEZ QUE USAS LA PÁGINA DEBES SABER Y LEER ESTO!</h2>
@@ -168,77 +426,79 @@
       <p><strong>(Ejemplo de publicidad maliciosa)</strong></p>
       <p>Si descargas un archivo con esas condiciones, <strong>no es de esta página</strong> y es una <strong>PUBLICIDAD MALICIOSA CON MALWARE!</strong></p>
       <p>Tené cuidado, mucha gente dice que la página tiene virus solo por no informarse y descargar cualquier cosa.</p>
-
       <h2 style="margin-top:40px;color:var(--success);">¡SI NO SABES INSTALAR LOS PROYECTOS O TIENES FALLOS!</h2>
       <p>Te recomiendo ver el <strong>Tutorial de Instalación</strong> para evitar errores frecuentes de extracción, drivers y demás!</p>
-
       <h2 style="margin-top:40px;color:var(--accent);">¿LOS JUEGOS TIENEN VIRUS?</h2>
       <p>No. Esto se debe a los cracks y modificaciones. Desactiva tu antivirus temporalmente (el crack es detectado como falso positivo). Todo está 100% limpio.</p>
-
       <h2 style="margin-top:40px;color:#ff5555;">POR ÚLTIMO Y IMPORTANTE</h2>
       <p>Leé los artículos del apartado <strong>"EXTRA"</strong>. Ahí tenés info valiosa.</p>
-
-      <div class="modal-buttons">
-        <button id="skipBtn" class="modal-btn btn-cancel">Esperando 5 segundos...</button>
-        <button id="continueBtn" class="modal-btn btn-continue">Esperando 5 segundos...</button>
+      <div class="modal-buttons" style="margin-top:45px;">
+        <button id="skipBtn" class="modal-btn btn-cancel">Esperando...</button>
+        <button id="continueBtn" class="modal-btn btn-continue">Esperando...</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL VIDEO - Desde tu GitHub repo (Assets) -->
+  <!-- MODAL VIDEO (sin loading spinner) -->
   <div id="videoModal" class="modal">
-    <div class="modal-content" style="max-width:960px; padding:20px; background:#0a0a0a; position:relative;">
-      <span onclick="closeVideoModal()" style="position:absolute; right:16px; top:12px; font-size:42px; color:#ff3333; cursor:pointer; z-index:10;">×</span>
-      
-      <h2 style="text-align:center; background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent; margin-bottom:20px;">
+    <div class="modal-content" style="max-width:980px; padding:18px;">
+      <span onclick="closeVideoModal()" style="position:absolute; right:20px; top:12px; font-size:48px; color:#f33; cursor:pointer;">×</span>
+      <h2 style="background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent;">
         Tutorial de Instalación
       </h2>
-      
-      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:14px; background:#000;">
-        <video 
-          style="position:absolute; top:0; left:0; width:100%; height:100%;"
-          controls 
-          autoplay 
-          loop 
-          muted 
-          playsinline>
-          <source src="https://github.com/EST119/EST119/raw/main/Assets/Tutorial%20de%20instalacion.mp4" type="video/mp4">
-          Tu navegador no soporta el elemento de video.
+      <div class="video-container">
+        <video controls autoplay loop muted playsinline>
+          <source src="/EST119/Assets/Tutorial%20de%20instalacion.mp4" type="video/mp4">
+          Tu navegador no soporta video.
         </video>
       </div>
-
-      <p style="text-align:center; color:#aaa; margin-top:15px; font-size:0.95rem;">
-        Si el video no carga o se ve lento: 
-        <a href="https://github.com/EST119/EST119/raw/main/Assets/Tutorial%20de%20instalacion.mp4" target="_blank" style="color:#00c3ff;">Descargar tutorial directamente</a>
+      <p style="color:#aaa; margin-top:12px;">
+        ¿Lento? <a href="/EST119/Assets/Tutorial%20de%20instalacion.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
       </p>
     </div>
   </div>
 
-  <!-- Texto de versión en esquina inferior izquierda -->
-  <div class="version">v_0.1A</div>
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- VERSION -->
+  <div class="version">v_0.3.1 (21/01/2026)</div>
 
   <script>
-    // Cookies para el modal de aviso
-    function setCookie(n,v,d){const e=new Date;e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/";}
-    function getCookie(n){const c=n+"=",a=decodeURIComponent(document.cookie).split(';');for(let i=0;i<a.length;i++){let x=a[i].trim();if(x.indexOf(c)===0)return x.substring(c.length)}return"";}
+    // Toast function
+    function showToast(msg, duration=2200) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), duration);
+    }
+
+    function copyWhatsApp() {
+      navigator.clipboard.writeText("+524435637315").then(() => {
+        showToast("¡Número copiado! Pega en WhatsApp", 2000);
+      });
+    }
+
+    // Cookies
+    function setCookie(n,v,d){const e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/";}
+    function getCookie(n){const c=n+"=",a=decodeURIComponent(document.cookie).split(';');for(let i=0;i<a.length;i++){let x=a[i].trim();if(x.indexOf(c)===0)return x.substring(c.length)}return "";}
 
     let currentLink = "";
-
     function openModal(el) {
       if (getCookie("est119_warning")==="hidden") { window.open(el.href,"_blank"); return; }
       currentLink = el.href;
       document.getElementById("warningModal").style.display="flex";
       const s=document.getElementById("skipBtn"), c=document.getElementById("continueBtn");
       s.disabled=c.disabled=true; s.classList.remove("active"); c.classList.remove("active");
-      s.textContent=c.textContent="Esperando 5 segundos...";
       let sec=5;
+      s.textContent=c.textContent=`Esperando ${sec}s...`;
       const t=setInterval(()=>{
         sec--;
         s.textContent=`No mostrar más (${sec}s)`;
         c.textContent=`Continuar (${sec}s)`;
         if(sec<=0){
           clearInterval(t);
-          s.textContent="No mostrar más y continuar"; c.textContent="Continuar";
+          s.textContent="No mostrar más"; c.textContent="Continuar";
           s.classList.add("active"); c.classList.add("active");
           s.disabled=c.disabled=false;
           s.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();window.open(currentLink,"_blank");};
@@ -246,7 +506,6 @@
         }
       },1000);
     }
-
     function closeModal(){ document.getElementById("warningModal").style.display="none"; }
 
     window.addEventListener("load",()=>{
@@ -261,30 +520,40 @@
           if(sec<=0){
             clearInterval(t);
             s.classList.add("active"); c.classList.add("active");
-            s.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();}
+            s.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();};
             c.onclick=closeModal;
           }
         },1000);
       }
     });
 
-    // Categorías y búsqueda
+    // Categorías
     function showCategory(id){
       document.querySelectorAll('.game-zones').forEach(z=>z.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
-      document.querySelector(`.sidebar a[onclick="showCategory('${id}')"]`)?.classList.add('active');
+      const sidebarLink = document.querySelector(`.sidebar a[onclick="showCategory('${id}')"]`);
+      if(sidebarLink) sidebarLink.classList.add('active');
     }
 
-    function searchGames(){
-      const q=document.getElementById("searchBox").value.toLowerCase();
-      document.querySelectorAll(".game-item").forEach(i=>i.style.display=i.dataset.name?.toLowerCase().includes(q)?"block":"none");
+    // Búsqueda GLOBAL
+    function searchGlobal(){
+      const q = document.getElementById("searchBox").value.toLowerCase().trim();
+      document.querySelectorAll(".game-item").forEach(item => {
+        const name = item.dataset.name?.toLowerCase() || "";
+        item.style.display = name.includes(q) ? "block" : "none";
+      });
     }
 
-    // Modales de video y aviso
-    function openVideoModal(){ document.getElementById("videoModal").style.display="flex"; }
+    // Video modal (sin loading)
+    function openVideoModal(){
+      document.getElementById("videoModal").style.display="flex";
+    }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
-    document.addEventListener("keydown",e=>{if(e.key==="Escape"){ closeModal(); closeVideoModal(); }});
+
+    document.addEventListener("keydown", e => {
+      if(e.key === "Escape") { closeModal(); closeVideoModal(); }
+    });
   </script>
 </body>
 </html>
