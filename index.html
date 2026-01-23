@@ -294,16 +294,9 @@
     }
     .ticket-info {
       max-width: 720px;
-      margin: 0 auto 20px;
+      margin: 0 auto 30px;
       color: #bbb;
       font-size: 1.05rem;
-    }
-    .ticket-note {
-      max-width: 720px;
-      margin: 10px auto 30px;
-      color: #888;
-      font-size: 0.95rem;
-      font-style: italic;
     }
 
     @media (max-width: 960px) {
@@ -437,9 +430,6 @@
           Envía tu petición de juego, reporte de error, sugerencia o cualquier consulta.<br>
           El mensaje llegará directamente a nuestro Discord con la fecha, hora y número de ticket.
         </p>
-        <p class="ticket-note">
-          Nota: Los contadores (diario y total) son por navegador (localStorage). Para contadores globales reales se necesitaría un backend servidor.
-        </p>
         <textarea id="ticketMessage" placeholder="Escribe aquí tu petición o mensaje..."></textarea>
         <button class="download-btn" style="width: auto; display: inline-block; min-width: 220px;" onclick="sendTicket()">Enviar Ticket</button>
       </div>
@@ -450,13 +440,14 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
-          <li><strong>22/01/2026 - 18:45</strong>: v_0.5 - Versión completa: Integrado webhook real, agregados contadores de ticket diario (se resetea cada día) y total (acumulativo por navegador) usando localStorage, mostrados en el embed de Discord.</li>
-          <li><strong>22/01/2026 - 18:15</strong>: v_0.4 - Versión completa: Agregado Sistema de Tickets con envío directo a webhook de Discord, textarea estilizada, validación, toast de confirmación y prevención de spam.</li>
-          <li><strong>21/01/2026 - 23:45</strong>: v_0.3.1 - Fix menor: Eliminado loading spinner en video modal, revertido texto de aviso a original con detalles de MEGA/.7z.</li>
-          <li><strong>21/01/2026 - 23:30</strong>: v_0.3A - Carátulas en juegos, búsqueda global, toast, mobile mejorado, video ruta corregida.</li>
-          <li><strong>21/01/2026 - 11:10</strong>: v_0.1A → Sistema de versiones (A=Alfa, B=Beta).</li>
-          <li><strong>21/01/2026 - 11:08</strong>: Agregado modal de advertencia con timer.</li>
-          <li><strong>21/01/2026 - 11:07</strong>: Categoría Change Log creada.</li>
+          <li><strong>22/01/2026 - 19:30</strong>: v_0.6 - Versión completa: Cambiado el canal de Discord para los tickets y simplificado el registro de cambios para que sea más fácil de entender.</li>
+          <li><strong>22/01/2026 - 18:45</strong>: v_0.5 - Versión completa: Ahora cada ticket muestra su número del día (se reinicia diariamente) y el número total aproximado.</li>
+          <li><strong>22/01/2026 - 18:15</strong>: v_0.4 - Versión completa: Agregado el Sistema de Tickets para pedir juegos o reportar problemas directo por la página.</li>
+          <li><strong>21/01/2026 - 23:45</strong>: v_0.3.1 - Fix menor: Quitado el spinner de carga en el video tutorial y vuelto al texto original del aviso.</li>
+          <li><strong>21/01/2026 - 23:30</strong>: v_0.3A - Mejoras: Carátulas en los juegos, búsqueda más rápida, mensajes de confirmación y mejor vista en celulares.</li>
+          <li><strong>21/01/2026 - 11:10</strong>: v_0.1A → Nueva forma de marcar versiones (A = prueba, B = beta).</li>
+          <li><strong>21/01/2026 - 11:08</strong>: Agregado aviso importante al descargar.</li>
+          <li><strong>21/01/2026 - 11:07</strong>: Creada la sección Change Log.</li>
         </ul>
       </div>
     </div>
@@ -517,7 +508,7 @@
   <div id="toast"></div>
 
   <!-- VERSION -->
-  <div class="version">v_0.5 (22/01/2026)</div>
+  <div class="version">v_0.6 (22/01/2026)</div>
 
   <script>
     // Toast function
@@ -634,7 +625,7 @@
       const date = now.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-      const webhookURL = 'https://discord.com/api/webhooks/1464049082602487975/KvblaTgRgFxGy2EHpyEMEvIgH_uHo4T_9R85lmV6j7rdIbhiXPPyXjd8zQFExXIZp4ZJ';
+      const webhookURL = 'https://discord.com/api/webhooks/1464052230306140284/KrL_FcKD90P2cbeeXjVy0s45_27r59Nbj4F_poSEdIKtEhUb-c-3VJmPs6ejJbOa5lVd';
 
       const payload = {
         embeds: [{
@@ -648,7 +639,7 @@
             { name: '🔢 Ticket total (aprox.)', value: `${nextTotal}`, inline: true }
           ],
           timestamp: now.toISOString(),
-          footer: { text: 'Sistema de Tickets | Enviado desde la web (contadores por navegador)' }
+          footer: { text: 'Sistema de Tickets | Enviado desde la web' }
         }]
       };
 
