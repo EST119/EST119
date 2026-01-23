@@ -270,7 +270,6 @@
       font-size: 0.82rem;
       z-index: 999;
     }
-
     /* ESTILOS PARA SISTEMA DE TICKETS */
     #ticketMessage {
       width: 100%;
@@ -298,15 +297,14 @@
       color: #bbb;
       font-size: 1.05rem;
     }
-
     @media (max-width: 960px) {
-      .sidebar { 
-        position: relative; 
-        width: 100%; 
-        height: auto; 
-        border-right: none; 
-        border-bottom: 1px solid #222; 
-        padding: 20px; 
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #222;
+        padding: 20px;
       }
       .main { margin-left: 0; width: 100%; padding: 25px 15px; }
       body { flex-direction: column; }
@@ -317,7 +315,6 @@
   </style>
 </head>
 <body>
-
   <!-- SIDEBAR -->
   <div class="sidebar">
     <h2>EST 119</h2>
@@ -331,7 +328,6 @@
     <a href="#" onclick="showCategory('tickets')">Sistema de Tickets</a>
     <a href="#" onclick="showCategory('changelog')">Change Log</a>
   </div>
-
   <!-- MAIN -->
   <div class="main">
     <div class="top-buttons">
@@ -340,9 +336,7 @@
       <button onclick="showCategory('programas')">Programas</button>
       <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
-
     <input type="text" id="searchBox" placeholder="Buscar juego, emulador, programa..." onkeyup="searchGlobal()">
-
     <!-- JUEGOS -->
     <div id="juegos" class="game-zones active">
       <div class="zone">
@@ -379,7 +373,6 @@
         </div>
       </div>
     </div>
-
     <!-- EMULADORES -->
     <div id="emuladores" class="game-zones">
       <div class="zone placeholder-zone">
@@ -388,12 +381,10 @@
         <p style="margin-top:20px;">¿Quieres alguno en especial? ¡Pídelo por WhatsApp!</p>
       </div>
     </div>
-
     <!-- OTRAS CATEGORÍAS -->
     <div id="celulares" class="game-zones"><div class="zone placeholder-zone"><h3>Celulares</h3><p style="color:#888;">Próximamente…</p></div></div>
     <div id="programas" class="game-zones"><div class="zone placeholder-zone"><h3>Programas</h3><p style="color:#888;">Próximamente…</p></div></div>
     <div id="sistemas" class="game-zones"><div class="zone placeholder-zone"><h3>Sistemas</h3><p style="color:#888;">Próximamente…</p></div></div>
-
     <!-- EXTRA -->
     <div id="extra" class="game-zones">
       <div class="zone">
@@ -410,7 +401,6 @@
         </div>
       </div>
     </div>
-
     <!-- PROPÓSITOS -->
     <div id="propositos" class="game-zones">
       <div class="zone">
@@ -421,7 +411,6 @@
         <button class="copy-btn" onclick="copyWhatsApp()">Copiar WhatsApp: +52 443 563 7315</button>
       </div>
     </div>
-
     <!-- SISTEMA DE TICKETS -->
     <div id="tickets" class="game-zones">
       <div class="zone">
@@ -434,13 +423,13 @@
         <button class="download-btn" style="width: auto; display: inline-block; min-width: 220px;" onclick="sendTicket()">Enviar Ticket</button>
       </div>
     </div>
-
     <!-- CHANGE LOG -->
     <div id="changelog" class="game-zones">
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
-          <li><strong>22/01/2026 - 19:30</strong>: v_0.6 - Versión completa: Cambiado el canal de Discord para los tickets</li>
+          <li><strong>22/01/2026 - 19:00</strong>: v_0.8 - Mini fix: Pequeños ajustes en el texto del change log para que quede más natural.</li>
+          <li><strong>22/01/2026 - 19:30</strong>: v_0.6 - Versión completa: Cambiado el canal de Discord para los tickets.</li>
           <li><strong>22/01/2026 - 18:45</strong>: v_0.5 - Versión completa: Ahora cada ticket muestra su número del día (se reinicia diariamente) y el número total aproximado.</li>
           <li><strong>22/01/2026 - 18:15</strong>: v_0.4 - Versión completa: Agregado el Sistema de Tickets para pedir juegos o reportar problemas directo por la página.</li>
           <li><strong>21/01/2026 - 23:45</strong>: v_0.3.1 - Fix menor: Quitado el spinner de carga en el video tutorial y vuelto al texto original del aviso.</li>
@@ -451,7 +440,6 @@
         </ul>
       </div>
     </div>
-
     <!-- CONTACTO -->
     <div class="contact">
       <h2>¿Juego que no está? ¡Pídelo!</h2>
@@ -460,7 +448,6 @@
       <button class="copy-btn" onclick="copyWhatsApp()">Copiar número</button>
     </div>
   </div>
-
   <!-- MODAL AVISO -->
   <div id="warningModal" class="modal">
     <div class="modal-content">
@@ -484,7 +471,6 @@
       </div>
     </div>
   </div>
-
   <!-- MODAL VIDEO -->
   <div id="videoModal" class="modal">
     <div class="modal-content" style="max-width:980px; padding:18px;">
@@ -503,13 +489,10 @@
       </p>
     </div>
   </div>
-
   <!-- TOAST -->
   <div id="toast"></div>
-
   <!-- VERSION -->
-  <div class="version">v_0.6 (22/01/2026)</div>
-
+  <div class="version">v_0.8 (22/01/2026)</div>
   <script>
     // Toast function
     function showToast(msg, duration=2200) {
@@ -518,17 +501,14 @@
       t.classList.add("show");
       setTimeout(() => t.classList.remove("show"), duration);
     }
-
     function copyWhatsApp() {
       navigator.clipboard.writeText("+524435637315").then(() => {
         showToast("¡Número copiado! Pega en WhatsApp", 2000);
       });
     }
-
     // Cookies
     function setCookie(n,v,d){const e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+"="+v+";expires="+e.toUTCString()+";path=/";}
     function getCookie(n){const c=n+"=",a=decodeURIComponent(document.cookie).split(';');for(let i=0;i<a.length;i++){let x=a[i].trim();if(x.indexOf(c)===0)return x.substring(c.length)}return "";}
-
     let currentLink = "";
     function openModal(el) {
       if (getCookie("est119_warning")==="hidden") { window.open(el.href,"_blank"); return; }
@@ -553,7 +533,6 @@
       },1000);
     }
     function closeModal(){ document.getElementById("warningModal").style.display="none"; }
-
     window.addEventListener("load",()=>{
       if(getCookie("est119_warning")!=="hidden"){
         document.getElementById("warningModal").style.display="flex";
@@ -572,7 +551,6 @@
         },1000);
       }
     });
-
     // Categorías
     function showCategory(id){
       document.querySelectorAll('.game-zones').forEach(z=>z.classList.remove('active'));
@@ -581,7 +559,6 @@
       const sidebarLink = document.querySelector(`.sidebar a[onclick="showCategory('${id}')"]`);
       if(sidebarLink) sidebarLink.classList.add('active');
     }
-
     // Búsqueda GLOBAL
     function searchGlobal(){
       const q = document.getElementById("searchBox").value.toLowerCase().trim();
@@ -590,25 +567,21 @@
         item.style.display = name.includes(q) ? "block" : "none";
       });
     }
-
     // Video modal
     function openVideoModal(){
       document.getElementById("videoModal").style.display="flex";
     }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
-
     // ==================== CONTADORES DE TICKETS (localStorage - por navegador) ====================
     let totalTickets = parseInt(localStorage.getItem('est119_totalTickets') || '0');
     let dailyTickets = parseInt(localStorage.getItem('est119_dailyTickets') || '0');
     const currentDate = new Date().toLocaleDateString('es-MX');
     const lastSendDate = localStorage.getItem('est119_lastSendDate');
-
     if (lastSendDate !== currentDate) {
       dailyTickets = 0;
       localStorage.setItem('est119_dailyTickets', '0');
       localStorage.setItem('est119_lastSendDate', currentDate);
     }
-
     // ENVÍO DE TICKET A DISCORD WEBHOOK
     function sendTicket() {
       const message = document.getElementById('ticketMessage').value.trim();
@@ -616,17 +589,13 @@
         showToast('⚠️ Por favor escribe tu petición antes de enviar.', 3000);
         return;
       }
-
       // Calcular números de ticket para este envío
       const nextDaily = dailyTickets + 1;
       const nextTotal = totalTickets + 1;
-
       const now = new Date();
       const date = now.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
       const webhookURL = 'https://discord.com/api/webhooks/1464052230306140284/KrL_FcKD90P2cbeeXjVy0s45_27r59Nbj4F_poSEdIKtEhUb-c-3VJmPs6ejJbOa5lVd';
-
       const payload = {
         embeds: [{
           title: '🎫 Nuevo Ticket EST 119',
@@ -642,11 +611,9 @@
           footer: { text: 'Sistema de Tickets | Enviado desde la web' }
         }]
       };
-
       const btn = event.target;
       btn.disabled = true;
       btn.textContent = 'Enviando...';
-
       fetch(webhookURL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -656,7 +623,6 @@
         if (response.ok) {
           showToast('✅ ¡Ticket enviado correctamente!', 3500);
           document.getElementById('ticketMessage').value = '';
-
           // Actualizar contadores solo si el envío fue exitoso
           dailyTickets = nextDaily;
           totalTickets = nextTotal;
@@ -675,7 +641,6 @@
         btn.textContent = 'Enviar Ticket';
       });
     }
-
     document.addEventListener("keydown", e => {
       if(e.key === "Escape") { closeModal(); closeVideoModal(); }
     });
