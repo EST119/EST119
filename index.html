@@ -270,6 +270,42 @@
       font-size: 0.82rem;
       z-index: 999;
     }
+
+    /* ESTILOS PARA SISTEMA DE TICKETS */
+    #ticketMessage {
+      width: 100%;
+      max-width: 720px;
+      min-height: 180px;
+      padding: 20px;
+      margin: 30px auto;
+      display: block;
+      background: #1a1a1a;
+      border: none;
+      border-radius: 20px;
+      color: var(--text);
+      font-size: 1.1rem;
+      font-family: inherit;
+      outline: none;
+      resize: vertical;
+    }
+    #ticketMessage:focus {
+      background: #222;
+      box-shadow: 0 0 25px rgba(0,195,255,0.4);
+    }
+    .ticket-info {
+      max-width: 720px;
+      margin: 0 auto 20px;
+      color: #bbb;
+      font-size: 1.05rem;
+    }
+    .ticket-note {
+      max-width: 720px;
+      margin: 10px auto 30px;
+      color: #888;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
     @media (max-width: 960px) {
       .sidebar { 
         position: relative; 
@@ -299,6 +335,7 @@
     <a href="#" onclick="showCategory('programas')">Programas</a>
     <a href="#" onclick="showCategory('sistemas')">Sistemas</a>
     <a href="#" onclick="showCategory('propositos')">Propósitos</a>
+    <a href="#" onclick="showCategory('tickets')">Sistema de Tickets</a>
     <a href="#" onclick="showCategory('changelog')">Change Log</a>
   </div>
 
@@ -350,7 +387,7 @@
       </div>
     </div>
 
-    <!-- EMULADORES (placeholder mejorado) -->
+    <!-- EMULADORES -->
     <div id="emuladores" class="game-zones">
       <div class="zone placeholder-zone">
         <h3>Emuladores</h3>
@@ -359,7 +396,7 @@
       </div>
     </div>
 
-    <!-- Otras categorías vacías con placeholder similar -->
+    <!-- OTRAS CATEGORÍAS -->
     <div id="celulares" class="game-zones"><div class="zone placeholder-zone"><h3>Celulares</h3><p style="color:#888;">Próximamente…</p></div></div>
     <div id="programas" class="game-zones"><div class="zone placeholder-zone"><h3>Programas</h3><p style="color:#888;">Próximamente…</p></div></div>
     <div id="sistemas" class="game-zones"><div class="zone placeholder-zone"><h3>Sistemas</h3><p style="color:#888;">Próximamente…</p></div></div>
@@ -392,11 +429,29 @@
       </div>
     </div>
 
+    <!-- SISTEMA DE TICKETS -->
+    <div id="tickets" class="game-zones">
+      <div class="zone">
+        <h3>Sistema de Tickets</h3>
+        <p class="ticket-info">
+          Envía tu petición de juego, reporte de error, sugerencia o cualquier consulta.<br>
+          El mensaje llegará directamente a nuestro Discord con la fecha, hora y número de ticket.
+        </p>
+        <p class="ticket-note">
+          Nota: Los contadores (diario y total) son por navegador (localStorage). Para contadores globales reales se necesitaría un backend servidor.
+        </p>
+        <textarea id="ticketMessage" placeholder="Escribe aquí tu petición o mensaje..."></textarea>
+        <button class="download-btn" style="width: auto; display: inline-block; min-width: 220px;" onclick="sendTicket()">Enviar Ticket</button>
+      </div>
+    </div>
+
     <!-- CHANGE LOG -->
     <div id="changelog" class="game-zones">
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
+          <li><strong>22/01/2026 - 18:45</strong>: v_0.5 - Versión completa: Integrado webhook real, agregados contadores de ticket diario (se resetea cada día) y total (acumulativo por navegador) usando localStorage, mostrados en el embed de Discord.</li>
+          <li><strong>22/01/2026 - 18:15</strong>: v_0.4 - Versión completa: Agregado Sistema de Tickets con envío directo a webhook de Discord, textarea estilizada, validación, toast de confirmación y prevención de spam.</li>
           <li><strong>21/01/2026 - 23:45</strong>: v_0.3.1 - Fix menor: Eliminado loading spinner en video modal, revertido texto de aviso a original con detalles de MEGA/.7z.</li>
           <li><strong>21/01/2026 - 23:30</strong>: v_0.3A - Carátulas en juegos, búsqueda global, toast, mobile mejorado, video ruta corregida.</li>
           <li><strong>21/01/2026 - 11:10</strong>: v_0.1A → Sistema de versiones (A=Alfa, B=Beta).</li>
@@ -415,7 +470,7 @@
     </div>
   </div>
 
-  <!-- MODAL AVISO (revertido a texto original) -->
+  <!-- MODAL AVISO -->
   <div id="warningModal" class="modal">
     <div class="modal-content">
       <h2>¡SI ES LA PRIMERA VEZ QUE USAS LA PÁGINA DEBES SABER Y LEER ESTO!</h2>
@@ -439,7 +494,7 @@
     </div>
   </div>
 
-  <!-- MODAL VIDEO (sin loading spinner) -->
+  <!-- MODAL VIDEO -->
   <div id="videoModal" class="modal">
     <div class="modal-content" style="max-width:980px; padding:18px;">
       <span onclick="closeVideoModal()" style="position:absolute; right:20px; top:12px; font-size:48px; color:#f33; cursor:pointer;">×</span>
@@ -462,7 +517,7 @@
   <div id="toast"></div>
 
   <!-- VERSION -->
-  <div class="version">v_0.3.1 (21/01/2026)</div>
+  <div class="version">v_0.5 (22/01/2026)</div>
 
   <script>
     // Toast function
@@ -545,11 +600,90 @@
       });
     }
 
-    // Video modal (sin loading)
+    // Video modal
     function openVideoModal(){
       document.getElementById("videoModal").style.display="flex";
     }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
+
+    // ==================== CONTADORES DE TICKETS (localStorage - por navegador) ====================
+    let totalTickets = parseInt(localStorage.getItem('est119_totalTickets') || '0');
+    let dailyTickets = parseInt(localStorage.getItem('est119_dailyTickets') || '0');
+    const currentDate = new Date().toLocaleDateString('es-MX');
+    const lastSendDate = localStorage.getItem('est119_lastSendDate');
+
+    if (lastSendDate !== currentDate) {
+      dailyTickets = 0;
+      localStorage.setItem('est119_dailyTickets', '0');
+      localStorage.setItem('est119_lastSendDate', currentDate);
+    }
+
+    // ENVÍO DE TICKET A DISCORD WEBHOOK
+    function sendTicket() {
+      const message = document.getElementById('ticketMessage').value.trim();
+      if (message === '') {
+        showToast('⚠️ Por favor escribe tu petición antes de enviar.', 3000);
+        return;
+      }
+
+      // Calcular números de ticket para este envío
+      const nextDaily = dailyTickets + 1;
+      const nextTotal = totalTickets + 1;
+
+      const now = new Date();
+      const date = now.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      const webhookURL = 'https://discord.com/api/webhooks/1464049082602487975/KvblaTgRgFxGy2EHpyEMEvIgH_uHo4T_9R85lmV6j7rdIbhiXPPyXjd8zQFExXIZp4ZJ';
+
+      const payload = {
+        embeds: [{
+          title: '🎫 Nuevo Ticket EST 119',
+          description: message,
+          color: 50175,
+          fields: [
+            { name: '📅 Fecha', value: date, inline: true },
+            { name: '🕐 Hora', value: time, inline: true },
+            { name: '🔢 Ticket del día', value: `${nextDaily}`, inline: true },
+            { name: '🔢 Ticket total (aprox.)', value: `${nextTotal}`, inline: true }
+          ],
+          timestamp: now.toISOString(),
+          footer: { text: 'Sistema de Tickets | Enviado desde la web (contadores por navegador)' }
+        }]
+      };
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          showToast('✅ ¡Ticket enviado correctamente!', 3500);
+          document.getElementById('ticketMessage').value = '';
+
+          // Actualizar contadores solo si el envío fue exitoso
+          dailyTickets = nextDaily;
+          totalTickets = nextTotal;
+          localStorage.setItem('est119_dailyTickets', dailyTickets);
+          localStorage.setItem('est119_totalTickets', totalTickets);
+          localStorage.setItem('est119_lastSendDate', currentDate);
+        } else {
+          showToast('❌ Error al enviar el ticket (respuesta del servidor).', 4000);
+        }
+      })
+      .catch(() => {
+        showToast('🌐 Error de conexión. Revisa tu internet e inténtalo de nuevo.', 4000);
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Enviar Ticket';
+      });
+    }
 
     document.addEventListener("keydown", e => {
       if(e.key === "Escape") { closeModal(); closeVideoModal(); }
