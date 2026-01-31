@@ -97,7 +97,7 @@
       padding: 16px 24px;
       margin: 0 auto 35px;
       display: block;
-      border-radius: 50px;
+      border-radius nielen: 50px;
       border: none;
       background: #1a1a1a;
       color: white;
@@ -128,7 +128,7 @@
       font-size: 2.1rem;
       margin-bottom: 28px;
       text-align: center;
-      text-shadow: 0 2px 10px rgba(0,195,255,0.3);
+      text-outline: 0 2px 10px rgba(0,195,255,0.3);
     }
     .game-item {
       background: #0c0c0c;
@@ -231,12 +231,14 @@
       background: #111;
       max-width: 980px;
       width: 92%;
+      max-height: 90vh;
       border-radius: 20px;
       padding: 38px;
       color: white;
       box-shadow: 0 0 60px rgba(0,195,255,0.5);
       text-align: center;
       position: relative;
+      overflow-y: auto;
     }
     .close-modal {
       position: absolute;
@@ -260,6 +262,22 @@
     }
     .gallery-grid img:hover {
       transform: scale(1.05);
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #000;
+      margin: 20px 0;
+      max-width: 100%;
+    }
+    .video-container video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      max-width: 100%;
     }
     /* Version */
     .version {
@@ -424,7 +442,8 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
-          <li><strong>30/01/2026 - 18:45</strong>: v_1.2 - Cambio mínimo: Reemplazado Sonic 1 y 2 por Warcraft III Reign Of Chaos.</li>
+          <li><strong>30/01/2026 - 18:45</strong>: v_1.4 - Mini fix: Arreglado que todos los botones (incluyendo Extra) funcionen bien sin abrir la galería por error y agregado scroll en los modales para ver todo el contenido completo.</li>
+          <li><strong>30/01/2026 - 18:30</strong>: v_1.3 - Mini fix: Agregado scroll en la galería de imágenes para ver todas y arreglado que el video tutorial se vea completo sin salirse.</li>
           <li><strong>30/01/2026 - 18:15</strong>: v_1.1 - Cambio mínimo: Quitadas las portadas de los juegos porque ahora al hacer click se abre la galería con varias fotos.</li>
           <li><strong>30/01/2026 - 17:45</strong>: v_1.0 - Versión completa: Agregada galería de fotos al hacer click en los juegos y arreglado que los botones de descargar funcionen perfecto.</li>
           <li><strong>22/01/2026 - 19:00</strong>: v_0.8 - Mini fix: Pequeños ajustes en el texto del change log.</li>
@@ -487,8 +506,8 @@
         ¿Lento? <a href="/EST119/Assets/Tutorial%20de%20instalacion.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
       </p>
     </div>
-  </div>  
-<!-- MODAL GALERÍA -->
+  </div>
+  <!-- MODAL GALERÍA -->
   <div id="galleryModal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeGallery()">×</span>
@@ -499,7 +518,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_1.2 (30/01/2026)</div>
+  <div class="version">v_1.4 (30/01/2026)</div>
   <script>
     // Toast function
     function showToast(msg, duration=2200) {
