@@ -137,21 +137,12 @@
       margin-bottom: 18px;
       box-shadow: 0 5px 18px #0008;
       transition: transform .25s, box-shadow .25s;
+      cursor: pointer;
     }
     .game-item:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 35px rgba(0,195,255,0.2);
     }
-    .game-item img.cover {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px #000c;
-      transition: transform .4s;
-    }
-    .game-item:hover img.cover { transform: scale(1.05); }
     .game-item strong {
       font-size: 1.45rem;
       color: var(--success);
@@ -238,7 +229,7 @@
     }
     .modal-content {
       background: #111;
-      max-width: 920px;
+      max-width: 980px;
       width: 92%;
       border-radius: 20px;
       padding: 38px;
@@ -247,19 +238,28 @@
       text-align: center;
       position: relative;
     }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 14px;
-      background: #000;
-      margin: 20px 0;
-    }
-    .video-container video {
+    .close-modal {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      right: 20px;
+      top: 12px;
+      font-size: 48px;
+      color: #f33;
+      cursor: pointer;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,195,255,0.3);
+      transition: transform .3s;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
     }
     /* Version */
     .version {
@@ -311,6 +311,7 @@
       .top-buttons { gap: 12px; }
       .top-buttons button { min-width: 140px; padding: 12px 20px; font-size: 1rem; }
       .version { left: 16px; bottom: 8px; }
+      .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -342,34 +343,29 @@
       <div class="zone">
         <h3>Juegos</h3>
         <div class="game-item" data-name="gta san andreas">
-          <img class="cover" src="https://www.gtabase.com/rockstar-games/grand-theft-auto-san-andreas/images/artwork/box-art/front-cover-ps2.jpg" alt="GTA San Andreas">
           <strong>GTA San Andreas</strong>
           <span>3.86 GB • Acción / Aventura • 2004</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/fq98ufpgebu548y/GTS4N.zip" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
         <div class="game-item" data-name="gta vice city">
-          <img class="cover" src="https://www.gtabase.com/rockstar-games/grand-theft-auto-vice-city/images/artwork/box-art/front-cover-ps2.jpg" alt="GTA Vice City">
           <strong>GTA Vice City</strong>
           <span>1.46 GB • Acción / Crimen • 2002</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/jx0g5qewwi6l01p/GTV0C.rar" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
         <div class="game-item" data-name="five nights at freddy's">
-          <img class="cover" src="https://m.media-amazon.com/images/I/81wZ6k3p3+L._AC_SL1500_.jpg" alt="Five Nights at Freddy's Collection">
           <strong>Five Nights At Freddy's</strong>
           <span>1, 2, 3 y 4 • Terror • Pack</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/5p96ls7teprl6iv/FS4F.rar" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
         <div class="game-item" data-name="60 seconds">
-          <img class="cover" src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg" alt="60 Seconds!">
           <strong>60 Seconds!</strong>
           <span>Sobrevive el apocalipsis • Aventura</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/nza64vecb366vno/60S.rar" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
         <div class="game-item" data-name="sonic 1 y 2">
-          <img class="cover" src="https://images.igdb.com/igdb/image/upload/t_cover_big/co2wyy.jpg" alt="Sonic 1 & 2">
           <strong>Sonic 1 y 2</strong>
           <span>Clásicos • Plataformas</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/x32dhll7xtm27j3/SC.rar" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
       </div>
     </div>
@@ -392,12 +388,12 @@
         <div class="game-item" data-name="tutorial instalacion">
           <strong>Tutorial de instalación</strong>
           <span>Cómo instalar correctamente (video)</span>
-          <a class="download-btn" onclick="openVideoModal(); return false;">Ver Video</a>
+          <a class="download-btn" onclick="event.stopPropagation(); openVideoModal(); return false;">Ver Video</a>
         </div>
         <div class="game-item" data-name="winrar">
           <strong>WinRAR</strong>
           <span>Extractor de archivos .rar / .zip</span>
-          <a class="download-btn" href="https://www.mediafire.com/file/sfxl2gzzzrjqnmr/Win-rar.exe/file" onclick="openModal(this); return false;">Descargar</a>
+          <a class="download-btn" href="https://www.mediafire.com/file/sfxl2gzzzrjqnmr/Win-rar.exe/file" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
         </div>
       </div>
     </div>
@@ -428,6 +424,8 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
+          <li><strong>30/01/2026 - 18:15</strong>: v_1.1 - Cambio mínimo: Quitadas las portadas de los juegos porque ahora al hacer click se abre la galería con varias fotos.</li>
+          <li><strong>30/01/2026 - 17:45</strong>: v_1.0 - Versión completa: Agregada galería de fotos al hacer click en los juegos y arreglado que los botones de descargar funcionen perfecto.</li>
           <li><strong>22/01/2026 - 19:00</strong>: v_0.8 - Mini fix: Pequeños ajustes en el texto del change log.</li>
           <li><strong>22/01/2026 - 19:30</strong>: v_0.6 - Versión completa: Cambiado el canal de Discord para los tickets.</li>
           <li><strong>22/01/2026 - 18:45</strong>: v_0.5 - Versión completa: Ahora cada ticket muestra su número del día (se reinicia diariamente) y el número total aproximado.</li>
@@ -489,10 +487,18 @@
       </p>
     </div>
   </div>
+  <!-- MODAL GALERÍA -->
+  <div id="galleryModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeGallery()">×</span>
+      <h2 id="galleryTitle" style="background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent;">Galería</h2>
+      <div id="galleryImages" class="gallery-grid"></div>
+    </div>
+  </div>
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_0.8 (22/01/2026)</div>
+  <div class="version">v_1.1 (30/01/2026)</div>
   <script>
     // Toast function
     function showToast(msg, duration=2200) {
@@ -589,7 +595,6 @@
         showToast('⚠️ Por favor escribe tu petición antes de enviar.', 3000);
         return;
       }
-      // Calcular números de ticket para este envío
       const nextDaily = dailyTickets + 1;
       const nextTotal = totalTickets + 1;
       const now = new Date();
@@ -623,7 +628,6 @@
         if (response.ok) {
           showToast('✅ ¡Ticket enviado correctamente!', 3500);
           document.getElementById('ticketMessage').value = '';
-          // Actualizar contadores solo si el envío fue exitoso
           dailyTickets = nextDaily;
           totalTickets = nextTotal;
           localStorage.setItem('est119_dailyTickets', dailyTickets);
@@ -641,8 +645,70 @@
         btn.textContent = 'Enviar Ticket';
       });
     }
+    // GALERÍA DE IMÁGENES
+    const galleryData = {
+      "gta san andreas": [
+        "https://techsyndrome.in/wp-content/uploads/2021/11/Gta-San-Andreas-Definitive-Edition-Screenshot-2021.11.12-00.15.08.78.png",
+        "https://images.hdqwalls.com/download/gta-san-andreas-qhd-1280x720.jpg",
+        "https://www.cubed3.com/wp-content/uploads/2025/09/grand-theft-auto-san-andreas-pc-screenshot-art-1.jpg",
+        "https://www.oldgamehermit.com/wp-content/uploads/2022/01/gta-sa-2021-12-31-17-12-28-09.png",
+        "https://raketcontent.com/1/5a421_16861597416373_1920_07f1527df7.png"
+      ],
+      "gta vice city": [
+        "https://images.launchbox-app.com//28c8f0d7-bc0f-4597-92ef-fa20e688a872.jpg",
+        "https://media.moddb.com/images/mods/1/43/42013/Grand_Theft_Auto_Vice_City_Screenshot_2019.02.25_-_23.32.14.35.png",
+        "https://tse3.mm.bing.net/th/id/OIP.J6DDVqvJBh12ZNnBQqT97AHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://assetsio.gnwcdn.com/gta-vice-city-7.jpg?width=1920",
+        "https://m.thegtaplace.com/images/vicecity/screenshots/xbox/full_vc_10.jpg"
+      ],
+      "five nights at freddy's": [
+        "https://i.ytimg.com/vi/KQGbPna-tWY/maxresdefault.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/thumb/8/84/FNAF_2_office.jpg/330px-FNAF_2_office.jpg?width=1920",
+        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/354140/ss_ffcb2ebf7e91f0285666e13d5015ff93284071e7.1920x1080.jpg?t=1579635991",
+        "https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/6f0e0bae-96d1-11e6-a8d5-00163ec9f5fa/679852783/five-nights-at-freddys-4-screenshot.jpg",
+        "https://th.bing.com/th/id/R.24358a1449d7c13288953f9d953801bd?rik=u5Eylf0gT47xRg&pid=ImgRaw&r=0g"
+      ],
+      "60 seconds": [
+        "https://robotgentleman.com/60seconds/assets/img/media/60s_Screen_01.jpg",
+        "https://images.gamewatcherstatic.com/screenshot/image/8/ee/281948/ss_9b65e7962224bca274b9dec1532154c737f7d476.1920x1080.jpg",
+        "https://robotgentleman.com/60seconds/assets/img/media/60s_Screen_09.jpg",
+        "https://gamerheadquarters.com/articles/images/screenshots/indie/60seconds1.jpg",
+        "https://www.video-games-museum.com/en/screenshots/Switch/3/74620-ingame-60-Seconds-Reatomized.jpg"
+      ],
+      "sonic 1 y 2": [
+        "https://images8.alphacoders.com/420/thumb-1920-420334.jpg",
+        "https://cdn.arstechnica.net/wp-content/uploads/2021/01/sonic2hilltop.png",
+        "https://cdn.arstechnica.net/wp-content/uploads/2021/01/sonic1greenhill.png",
+        "https://minireview.io/common/uploads/cache/review/1-900-506-686b795045681d48cb9b73035c483549.webp",
+        "https://is5-ssl.mzstatic.com/image/thumb/Purple2/v4/29/88/aa/2988aa93-d7ae-a5ca-5659-cab9b1d0e6d7/source/1920x1080bb.png"
+      ]
+    };
+    function openGallery(e) {
+      if (e.target.closest('.download-btn')) return;
+      const item = e.currentTarget;
+      const name = item.dataset.name;
+      const images = galleryData[name] || [];
+      if (images.length === 0) return;
+      const title = item.querySelector('strong').textContent;
+      document.getElementById('galleryTitle').textContent = title;
+      const container = document.getElementById('galleryImages');
+      container.innerHTML = '';
+      images.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Captura del juego';
+        container.appendChild(img);
+      });
+      document.getElementById('galleryModal').style.display = 'flex';
+    }
+    function closeGallery() {
+      document.getElementById('galleryModal').style.display = 'none';
+    }
+    document.querySelectorAll('.game-item').forEach(item => {
+      item.addEventListener('click', openGallery);
+    });
     document.addEventListener("keydown", e => {
-      if(e.key === "Escape") { closeModal(); closeVideoModal(); }
+      if(e.key === "Escape") { closeModal(); closeVideoModal(); closeGallery(); }
     });
   </script>
 </body>
