@@ -97,7 +97,7 @@
       padding: 16px 24px;
       margin: 0 auto 35px;
       display: block;
-      border-radius nielen: 50px;
+      border-radius: 50px;
       border: none;
       background: #1a1a1a;
       color: white;
@@ -128,7 +128,7 @@
       font-size: 2.1rem;
       margin-bottom: 28px;
       text-align: center;
-      text-outline: 0 2px 10px rgba(0,195,255,0.3);
+      text-shadow: 0 2px 10px rgba(0,195,255,0.3);
     }
     .game-item {
       background: #0c0c0c;
@@ -384,6 +384,7 @@
           <strong>Warcraft III Reign Of Chaos</strong>
           <span>1.02GB • Estrategia • 2002</span>
           <a class="download-btn" href="https://www.mediafire.com/file/latpps7he4ohy3v/Warcraft_III_Reign_Of_Chaos.rar/file" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
+        </div>
         <div class="game-item" data-name="bmx streets">
           <strong>BMX Streets</strong>
           <span>3.94 GB • Estrategia • Simulación de BMX • 2024</span>
@@ -446,7 +447,8 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
-          <li><strong>19/02/2026 - 09:51</strong>: v_1.4.5 - Nuevo Juego BMX Streets y nuevos cambios visuales</li>
+          <li><strong>19/02/2026 - 22:18</strong>: v_1.4.6 - Fix: Arreglado que los juegos Warcraft III y BMX Streets se veían pegados (agregado cierre correcto de div).</li>
+          <li><strong>19/02/2026 - 09:51</strong>: v_1.4.5 - Nuevo Juego BMX Streets y nuevos cambios visuales.</li>
           <li><strong>30/01/2026 - 18:45</strong>: v_1.4 - Mini fix: Arreglado que todos los botones (incluyendo Extra) funcionen bien sin abrir la galería por error y agregado scroll en los modales para ver todo el contenido completo.</li>
           <li><strong>30/01/2026 - 18:30</strong>: v_1.3 - Mini fix: Agregado scroll en la galería de imágenes para ver todas y arreglado que el video tutorial se vea completo sin salirse.</li>
           <li><strong>30/01/2026 - 18:15</strong>: v_1.1 - Cambio mínimo: Quitadas las portadas de los juegos porque ahora al hacer click se abre la galería con varias fotos.</li>
@@ -523,7 +525,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_1.4.5 (19/02/2026)</div>
+  <div class="version">v_1.4.6 (19/02/2026)</div>
   <script>
     // Toast function
     function showToast(msg, duration=2200) {
@@ -706,6 +708,13 @@
         "https://i.ytimg.com/vi/4D3IS5TAofs/maxresdefault.jpg",
         "https://hips.hearstapps.com/digitalspyuk.cdnds.net/14/32/gaming-warcraft-3-reign-of-chaos-screenshot-1.jpg",
         "https://i.ytimg.com/vi/9YMPGV9e7Bc/maxresdefault.jpg"
+      ],
+      "bmx streets": [
+        "https://tse1.mm.bing.net/th/id/OIP.hnbHHwp2_E0VnO82sRAZ6QHaEK?rs=1&pid=ImgDetMain&o=7&rm=3", // Reemplaza con URLs reales de BMX Streets cuando las tengas
+        "https://tse1.mm.bing.net/th/id/OIP.WqYOZ5jrqWEELvIHhQEcwgHaFl?w=1432&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://i0.wp.com/rippcgames.com/ups/BMX-Streets.jpg?resize=616%2C353&ssl=1",
+        "https://th.bing.com/th/id/OIP.SuDGly6yL8v8y3HDzRrNHwHaEK?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://tse2.mm.bing.net/th/id/OIP.kC5K7vjqnVpczgl_ntgW5AAAAA?w=300&h=300&rs=1&pid=ImgDetMain&o=7&rm=3"
       ]
     };
     function openGallery(e) {
