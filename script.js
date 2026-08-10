@@ -81,6 +81,25 @@
       document.getElementById("videoModal").style.display="flex";
     }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
+    // Modal genérico de Películas (sirve para todas, lee data-title/data-src/data-type del botón)
+    function openMovieModal(el){
+      const title = el.dataset.title || "Película";
+      const src = el.dataset.src;
+      const type = el.dataset.type || "video/mp4";
+      const video = document.getElementById("movieModalVideo");
+      const source = document.getElementById("movieModalSource");
+      document.getElementById("movieModalTitle").textContent = title;
+      source.src = src;
+      source.type = type;
+      video.load();
+      document.getElementById("movieModalDownload").href = src;
+      document.getElementById("movieModal").style.display = "flex";
+    }
+    function closeMovieModal(){
+      const video = document.getElementById("movieModalVideo");
+      video.pause();
+      document.getElementById("movieModal").style.display = "none";
+    }
     // Contador de tarjetas por categoría en el sidebar
     function updateSidebarCounts(){
       document.querySelectorAll('.sidebar a[data-cat]').forEach(a=>{
@@ -233,5 +252,5 @@
       item.addEventListener('click', openGallery);
     });
     document.addEventListener("keydown", e => {
-      if(e.key === "Escape") { closeModal(); closeVideoModal(); closeGallery(); }
+      if(e.key === "Escape") { closeModal(); closeVideoModal(); closeMovieModal(); closeGallery(); }
     });
