@@ -125,18 +125,21 @@
         <div class="game-item pelicula-item" data-name="obsession">
           <strong>Obsession</strong>
           <span>2026 • Terror / Romance</span>
-          <a class="download-btn" data-title="Obsession" data-src="/EST119/Assets/Peliculas/obsession.mp4" data-type="video/mp4" onclick="event.stopPropagation(); openMovieModal(this); return false;">Ver Película</a>
+          <a class="download-btn" onclick="event.stopPropagation(); openMovieModal(); return false;">Ver Película</a>
         </div>
       </div>
       <!--
-        Para agregar más películas, copia el bloque de arriba y respeta la clase "pelicula-item"
-        para que el buscador y el estilo funcionen:
-
-        <div class="game-item pelicula-item" data-name="nombre de la pelicula">
-          <strong>Nombre de la película</strong>
-          <span>Año • Género</span>
-          <a class="download-btn" data-title="Nombre de la película" data-src="/EST119/Assets/Peliculas/archivo.mp4" data-type="video/mp4" onclick="event.stopPropagation(); openMovieModal(this); return false;">Ver Película</a>
-        </div>
+        Para agregar más películas:
+        1) Copia la tarjeta de arriba (respeta la clase "pelicula-item" para el buscador):
+           <div class="game-item pelicula-item" data-name="nombre de la pelicula">
+             <strong>Nombre de la película</strong>
+             <span>Año • Género</span>
+             <a class="download-btn" onclick="event.stopPropagation(); openNombreModal(); return false;">Ver Película</a>
+           </div>
+        2) Copia el modal "MODAL PELÍCULA: OBSESSION" de más abajo, cámbiale el id
+           (ej. "nombreModal"), el título y el src del <source>.
+        3) Copia openMovieModal()/closeMovieModal() en script.js, renómbralas
+           (ej. openNombreModal/closeNombreModal) y ajusta el id del modal que abren/cierran.
       -->
     </div>
     <!-- PROPÓSITOS -->
@@ -166,6 +169,7 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul class="changelog-list">
+          <li><strong>09/08/2026 - 00:55</strong>: v_2.5 - Arreglado que la película "Obsession" no cargaba: ahora el video está fijo en el HTML igual que el Tutorial de instalación (antes se asignaba por JavaScript al abrir el modal y el navegador no la renderizaba bien mientras estaba oculta).</li>
           <li><strong>09/08/2026 - 00:45</strong>: v_2.4 - Cambiado el archivo de la película "Obsession" de .mkv a .mp4 para mejor compatibilidad en todos los navegadores.</li>
           <li><strong>09/08/2026 - 00:40</strong>: v_2.3 - Cambiado el reproductor de Películas: ahora "Obsession" usa un botón "Ver Película" que abre el video en un modal, igual que el Tutorial de instalación, en vez de ir incrustado directo en la tarjeta.</li>
           <li><strong>09/08/2026 - 00:30</strong>: v_2.2 - Separado el código en tres archivos (index.html, styles.css, script.js) y agregada la primera película en la sección Películas: "Obsession" (2026, Terror / Romance), en formato .mkv.</li>
@@ -239,24 +243,25 @@
       </p>
     </div>
   </div>
-  <!-- MODAL PELÍCULA -->
+  <!-- MODAL PELÍCULA: OBSESSION -->
   <div id="movieModal" class="modal">
     <div class="modal-content" style="max-width:980px; padding:20px;">
       <span onclick="closeMovieModal()" class="close-modal">×</span>
-      <h2 id="movieModalTitle" style="background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent;">
-        Película
+      <h2 style="background:linear-gradient(90deg,#00c3ff,#00ff9d); -webkit-background-clip:text; color:transparent;">
+        Obsession
       </h2>
       <div class="video-container">
-        <video id="movieModalVideo" controls playsinline preload="metadata">
-          <source id="movieModalSource" src="" type="">
-          Tu navegador no soporta este video.
+        <video id="movieModalVideo" controls autoplay muted playsinline>
+          <source src="/EST119/Assets/Peliculas/obsession.mp4" type="video/mp4">
+          Tu navegador no soporta video.
         </video>
       </div>
       <p style="color:var(--text-dim); margin-top:12px;">
-        ¿No se reproduce? <a id="movieModalDownload" href="#" target="_blank" style="color:var(--accent);">Descargar directamente</a>
+        ¿No se reproduce? <a href="/EST119/Assets/Peliculas/obsession.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
       </p>
     </div>
   </div>
+
   <!-- MODAL GALERÍA -->
   <div id="galleryModal" class="modal">
     <div class="modal-content">
@@ -268,7 +273,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_2.4 (09/08/2026)</div>
+  <div class="version">v_2.5 (09/08/2026)</div>
   <script src="script.js"></script>
 </body>
 </html>

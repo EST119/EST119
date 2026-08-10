@@ -81,18 +81,8 @@
       document.getElementById("videoModal").style.display="flex";
     }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
-    // Modal genérico de Películas (sirve para todas, lee data-title/data-src/data-type del botón)
-    function openMovieModal(el){
-      const title = el.dataset.title || "Película";
-      const src = el.dataset.src;
-      const type = el.dataset.type || "video/mp4";
-      const video = document.getElementById("movieModalVideo");
-      const source = document.getElementById("movieModalSource");
-      document.getElementById("movieModalTitle").textContent = title;
-      source.src = src;
-      source.type = type;
-      video.load();
-      document.getElementById("movieModalDownload").href = src;
+    // Modal de Película: Obsession (mismo patrón que el tutorial: el <source> ya está fijo en el HTML)
+    function openMovieModal(){
       document.getElementById("movieModal").style.display = "flex";
     }
     function closeMovieModal(){
