@@ -97,7 +97,7 @@
       padding: 16px 24px;
       margin: 0 auto 35px;
       display: block;
-      border-radius: 50px;
+      border-radius nielen: 50px;
       border: none;
       background: #1a1a1a;
       color: white;
@@ -128,7 +128,7 @@
       font-size: 2.1rem;
       margin-bottom: 28px;
       text-align: center;
-      text-shadow: 0 2px 10px rgba(0,195,255,0.3);
+      text-outline: 0 2px 10px rgba(0,195,255,0.3);
     }
     .game-item {
       background: #0c0c0c;
@@ -279,6 +279,23 @@
       width: 100%; height: 100%;
       max-width: 100%;
     }
+    /* PELÍCULAS SECTION - miniaturas */
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+      margin-top: 10px;
+    }
+    .video-thumb video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
     /* Version */
     .version {
       position: fixed;
@@ -341,6 +358,7 @@
     <a href="#" onclick="showCategory('emuladores')">Emuladores</a>
     <a href="#" onclick="showCategory('celulares')">Celulares</a>
     <a href="#" onclick="showCategory('extra')">Extra</a>
+    <a href="#" onclick="showCategory('peliculas')">Películas</a>
     <a href="#" onclick="showCategory('programas')">Programas</a>
     <a href="#" onclick="showCategory('sistemas')">Sistemas</a>
     <a href="#" onclick="showCategory('propositos')">Propósitos</a>
@@ -352,6 +370,7 @@
     <div class="top-buttons">
       <button onclick="showCategory('juegos')">Juegos</button>
       <button onclick="showCategory('emuladores')">Emuladores</button>
+      <button onclick="showCategory('peliculas')">Películas</button>
       <button onclick="showCategory('programas')">Programas</button>
       <button onclick="showCategory('propositos')">Propósitos</button>
     </div>
@@ -384,7 +403,6 @@
           <strong>Warcraft III Reign Of Chaos</strong>
           <span>1.02GB • Estrategia • 2002</span>
           <a class="download-btn" href="https://www.mediafire.com/file/latpps7he4ohy3v/Warcraft_III_Reign_Of_Chaos.rar/file" onclick="event.stopPropagation(); openModal(this); return false;">Descargar</a>
-        </div>
         <div class="game-item" data-name="bmx streets">
           <strong>BMX Streets</strong>
           <span>3.94 GB • Estrategia • Simulación de BMX • 2024</span>
@@ -420,6 +438,32 @@
         </div>
       </div>
     </div>
+    <!-- PELÍCULAS -->
+    <div id="peliculas" class="game-zones">
+      <div class="zone placeholder-zone" id="peliculasPlaceholder">
+        <h3>Películas</h3>
+        <p style="color:#888; font-size:1.1rem;">Próximamente películas, trailers y más contenido audiovisual.</p>
+        <p style="margin-top:20px;">¿Quieres ver alguna película en especial? ¡Pídela por WhatsApp!</p>
+      </div>
+      <!--
+        Cuando haya películas, reemplaza el bloque placeholder de arriba por tarjetas como esta
+        (respeta la clase "pelicula-item" para que el buscador y el estilo funcionen):
+
+        <div class="zone">
+          <h3>Películas</h3>
+          <div class="game-item pelicula-item" data-name="nombre de la pelicula">
+            <strong>Nombre de la película</strong>
+            <span>Descripción corta • Género • Año</span>
+            <div class="video-thumb">
+              <video controls muted playsinline preload="metadata">
+                <source src="/EST119/Assets/Peliculas/nombre-de-la-pelicula.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+              </video>
+            </div>
+          </div>
+        </div>
+      -->
+    </div>
     <!-- PROPÓSITOS -->
     <div id="propositos" class="game-zones">
       <div class="zone">
@@ -447,8 +491,9 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul style="list-style:none; text-align:left; color:#bbb; padding-left:0; line-height:1.7;">
-          <li><strong>19/02/2026 - 22:18</strong>: v_1.4.6 - Fix: Arreglado que los juegos Warcraft III y BMX Streets se veían pegados (agregado cierre correcto de div).</li>
-          <li><strong>19/02/2026 - 09:51</strong>: v_1.4.5 - Nuevo Juego BMX Streets y nuevos cambios visuales.</li>
+          <li><strong>09/08/2026 - 00:10</strong>: v_1.6 - Cambiada la sección "Videos" por "Películas" y ajustado el aviso de descarga: al darle a "Estoy de acuerdo" ya no vuelve a aparecer.</li>
+          <li><strong>09/08/2026 - 00:00</strong>: v_1.5 - Agregada la nueva sección "Videos" (sidebar, botón superior y buscador) para gameplays, trailers y contenido en video.</li>
+          <li><strong>19/02/2026 - 09:51</strong>: v_1.4.5 - Nuevo Juego BMX Streets y nuevos cambios visuales</li>
           <li><strong>30/01/2026 - 18:45</strong>: v_1.4 - Mini fix: Arreglado que todos los botones (incluyendo Extra) funcionen bien sin abrir la galería por error y agregado scroll en los modales para ver todo el contenido completo.</li>
           <li><strong>30/01/2026 - 18:30</strong>: v_1.3 - Mini fix: Agregado scroll en la galería de imágenes para ver todas y arreglado que el video tutorial se vea completo sin salirse.</li>
           <li><strong>30/01/2026 - 18:15</strong>: v_1.1 - Cambio mínimo: Quitadas las portadas de los juegos porque ahora al hacer click se abre la galería con varias fotos.</li>
@@ -493,6 +538,7 @@
       <div class="modal-buttons" style="margin-top:45px;">
         <button id="skipBtn" class="modal-btn btn-cancel">Esperando...</button>
         <button id="continueBtn" class="modal-btn btn-continue">Esperando...</button>
+        <p style="margin-top:14px; color:#888; font-size:0.85rem;">Al darle a "Estoy de acuerdo" no te volverá a aparecer este aviso.</p>
       </div>
     </div>
   </div>
@@ -525,7 +571,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_1.4.6 (19/02/2026)</div>
+  <div class="version">v_1.6 (09/08/2026)</div>
   <script>
     // Toast function
     function showToast(msg, duration=2200) {
@@ -554,14 +600,14 @@
       const t=setInterval(()=>{
         sec--;
         s.textContent=`No mostrar más (${sec}s)`;
-        c.textContent=`Continuar (${sec}s)`;
+        c.textContent=`Estoy de acuerdo (${sec}s)`;
         if(sec<=0){
           clearInterval(t);
-          s.textContent="No mostrar más"; c.textContent="Continuar";
+          s.textContent="No mostrar más"; c.textContent="Estoy de acuerdo";
           s.classList.add("active"); c.classList.add("active");
           s.disabled=c.disabled=false;
           s.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();window.open(currentLink,"_blank");};
-          c.onclick=()=>{closeModal();window.open(currentLink,"_blank");};
+          c.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();window.open(currentLink,"_blank");};
         }
       },1000);
     }
@@ -571,15 +617,18 @@
         document.getElementById("warningModal").style.display="flex";
         let sec=5;
         const s=document.getElementById("skipBtn"), c=document.getElementById("continueBtn");
+        s.textContent=c.textContent=`Esperando ${sec}s...`;
         const t=setInterval(()=>{
           sec--;
           s.textContent=`No mostrar más (${sec}s)`;
-          c.textContent=`Entendido (${sec}s)`;
+          c.textContent=`Estoy de acuerdo (${sec}s)`;
           if(sec<=0){
             clearInterval(t);
+            s.textContent="No mostrar más"; c.textContent="Estoy de acuerdo";
             s.classList.add("active"); c.classList.add("active");
+            s.disabled=c.disabled=false;
             s.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();};
-            c.onclick=closeModal;
+            c.onclick=()=>{setCookie("est119_warning","hidden",30);closeModal();};
           }
         },1000);
       }
@@ -600,7 +649,7 @@
         item.style.display = name.includes(q) ? "block" : "none";
       });
     }
-    // Video modal
+    // Video modal (tutorial de instalación)
     function openVideoModal(){
       document.getElementById("videoModal").style.display="flex";
     }
@@ -708,17 +757,11 @@
         "https://i.ytimg.com/vi/4D3IS5TAofs/maxresdefault.jpg",
         "https://hips.hearstapps.com/digitalspyuk.cdnds.net/14/32/gaming-warcraft-3-reign-of-chaos-screenshot-1.jpg",
         "https://i.ytimg.com/vi/9YMPGV9e7Bc/maxresdefault.jpg"
-      ],
-      "bmx streets": [
-        "https://tse1.mm.bing.net/th/id/OIP.hnbHHwp2_E0VnO82sRAZ6QHaEK?rs=1&pid=ImgDetMain&o=7&rm=3", // Reemplaza con URLs reales de BMX Streets cuando las tengas
-        "https://tse1.mm.bing.net/th/id/OIP.WqYOZ5jrqWEELvIHhQEcwgHaFl?w=1432&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3",
-        "https://i0.wp.com/rippcgames.com/ups/BMX-Streets.jpg?resize=616%2C353&ssl=1",
-        "https://th.bing.com/th/id/OIP.SuDGly6yL8v8y3HDzRrNHwHaEK?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
-        "https://tse2.mm.bing.net/th/id/OIP.kC5K7vjqnVpczgl_ntgW5AAAAA?w=300&h=300&rs=1&pid=ImgDetMain&o=7&rm=3"
       ]
     };
     function openGallery(e) {
       if (e.target.closest('.download-btn')) return;
+      if (e.target.closest('.pelicula-item')) return;
       const item = e.currentTarget;
       const name = item.dataset.name;
       const images = galleryData[name] || [];
