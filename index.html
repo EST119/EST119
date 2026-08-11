@@ -129,17 +129,21 @@
         </div>
       </div>
       <!--
-        Para agregar más películas:
-        1) Copia la tarjeta de arriba (respeta la clase "pelicula-item" para el buscador):
+        Para agregar más películas (usando Google Drive, igual que "Obsession"):
+        1) Sube el video a Google Drive, click derecho → Compartir → "Cualquier persona
+           con el enlace", copia el link y saca el ID (la parte entre /d/ y /view).
+        2) Copia la tarjeta de arriba (respeta la clase "pelicula-item" para el buscador):
            <div class="game-item pelicula-item" data-name="nombre de la pelicula">
              <strong>Nombre de la película</strong>
              <span>Año • Género</span>
              <a class="download-btn" onclick="event.stopPropagation(); openNombreModal(); return false;">Ver Película</a>
            </div>
-        2) Copia el modal "MODAL PELÍCULA: OBSESSION" de más abajo, cámbiale el id
-           (ej. "nombreModal"), el título y el src del <source>.
-        3) Copia openMovieModal()/closeMovieModal() en script.js, renómbralas
-           (ej. openNombreModal/closeNombreModal) y ajusta el id del modal que abren/cierran.
+        3) Copia el modal "MODAL PELÍCULA: OBSESSION" de más abajo, cámbiale el id
+           (ej. "nombreModal"), el título, y en el iframe cambia el ID de Drive:
+           src="https://drive.google.com/file/d/TU_ID_AQUI/preview"
+           También cambia el link de descarga: .../uc?export=download&id=TU_ID_AQUI
+        4) Copia openMovieModal()/closeMovieModal() en script.js, renómbralas
+           (ej. openNombreModal/closeNombreModal) y ajusta los ids del modal/iframe.
       -->
     </div>
     <!-- PROPÓSITOS -->
@@ -169,6 +173,7 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul class="changelog-list">
+          <li><strong>09/08/2026 - 01:15</strong>: v_2.7 - "Obsession" ahora se reproduce desde Google Drive (embebida en el mismo modal) en vez de GitHub Pages, porque GitHub Pages no sirve archivos subidos con Git LFS. Se agregó también el link de descarga directa desde Drive.</li>
           <li><strong>09/08/2026 - 01:00</strong>: v_2.6 - Corregida la ruta del video de "Obsession": apuntaba a la carpeta "Peliculas" (plural) y la carpeta real es "Pelicula" (singular). Por eso no se reproducía.</li>
           <li><strong>09/08/2026 - 00:50</strong>: v_2.5 - Simplificado el modal de "Obsession": ahora el video queda fijo en el HTML igual que el Tutorial de instalación (antes se cargaba por JavaScript), que es el patrón que ya sabíamos que funciona.</li>
           <li><strong>09/08/2026 - 00:55</strong>: v_2.5 - Arreglado que la película "Obsession" no cargaba: ahora el video está fijo en el HTML igual que el Tutorial de instalación (antes se asignaba por JavaScript al abrir el modal y el navegador no la renderizaba bien mientras estaba oculta).</li>
@@ -253,13 +258,10 @@
         Obsession
       </h2>
       <div class="video-container">
-        <video id="movieModalVideo" controls autoplay muted playsinline>
-          <source src="/EST119/Assets/Pelicula/obsession.mp4" type="video/mp4">
-          Tu navegador no soporta video.
-        </video>
+        <iframe id="movieModalFrame" src="https://drive.google.com/file/d/1_pjLH0zRsDEPHdILX8lsyRMiGH9UvtBW/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
       <p style="color:var(--text-dim); margin-top:12px;">
-        ¿No se reproduce? <a href="/EST119/Assets/Pelicula/obsession.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
+        ¿No se reproduce? <a href="https://drive.google.com/uc?export=download&id=1_pjLH0zRsDEPHdILX8lsyRMiGH9UvtBW" target="_blank" style="color:var(--accent);">Descargar directamente</a>
       </p>
     </div>
   </div>
@@ -275,7 +277,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_2.6 (09/08/2026)</div>
+  <div class="version">v_2.7 (09/08/2026)</div>
   <script src="script.js"></script>
 </body>
 </html>
