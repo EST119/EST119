@@ -81,13 +81,14 @@
       document.getElementById("videoModal").style.display="flex";
     }
     function closeVideoModal(){ document.getElementById("videoModal").style.display="none"; }
-    // Modal de Película: Obsession (mismo patrón que el tutorial: el <source> ya está fijo en el HTML)
+    // Modal de Película: Obsession (video embebido desde Google Drive vía iframe)
     function openMovieModal(){
       document.getElementById("movieModal").style.display = "flex";
     }
     function closeMovieModal(){
-      const video = document.getElementById("movieModalVideo");
-      video.pause();
+      // Recargamos el iframe para que el video deje de sonar/reproducirse al cerrar
+      const frame = document.getElementById("movieModalFrame");
+      if(frame){ frame.src = frame.src; }
       document.getElementById("movieModal").style.display = "none";
     }
     // Contador de tarjetas por categoría en el sidebar
