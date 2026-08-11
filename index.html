@@ -169,6 +169,7 @@
       <div class="zone">
         <h3>Change Log</h3>
         <ul class="changelog-list">
+          <li><strong>09/08/2026 - 01:00</strong>: v_2.6 - Corregida la ruta del video de "Obsession": apuntaba a la carpeta "Peliculas" (plural) y la carpeta real es "Pelicula" (singular). Por eso no se reproducía.</li>
           <li><strong>09/08/2026 - 00:50</strong>: v_2.5 - Simplificado el modal de "Obsession": ahora el video queda fijo en el HTML igual que el Tutorial de instalación (antes se cargaba por JavaScript), que es el patrón que ya sabíamos que funciona.</li>
           <li><strong>09/08/2026 - 00:55</strong>: v_2.5 - Arreglado que la película "Obsession" no cargaba: ahora el video está fijo en el HTML igual que el Tutorial de instalación (antes se asignaba por JavaScript al abrir el modal y el navegador no la renderizaba bien mientras estaba oculta).</li>
           <li><strong>09/08/2026 - 00:45</strong>: v_2.4 - Cambiado el archivo de la película "Obsession" de .mkv a .mp4 para mejor compatibilidad en todos los navegadores.</li>
@@ -253,12 +254,12 @@
       </h2>
       <div class="video-container">
         <video id="movieModalVideo" controls autoplay muted playsinline>
-          <source src="/EST119/Assets/Peliculas/obsession.mp4" type="video/mp4">
+          <source src="/EST119/Assets/Pelicula/obsession.mp4" type="video/mp4">
           Tu navegador no soporta video.
         </video>
       </div>
       <p style="color:var(--text-dim); margin-top:12px;">
-        ¿No se reproduce? <a href="/EST119/Assets/Peliculas/obsession.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
+        ¿No se reproduce? <a href="/EST119/Assets/Pelicula/obsession.mp4" target="_blank" style="color:var(--accent);">Descargar directamente</a>
       </p>
     </div>
   </div>
@@ -274,7 +275,7 @@
   <!-- TOAST -->
   <div id="toast"></div>
   <!-- VERSION -->
-  <div class="version">v_2.5 (09/08/2026)</div>
+  <div class="version">v_2.6 (09/08/2026)</div>
   <script src="script.js"></script>
 </body>
 </html>
