@@ -134,7 +134,7 @@
       const now = new Date();
       const date = now.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const webhookURL = 'https://discord.com/api/webhooks/1464052230306140284/KrL_FcKD90P2cbeeXjVy0s45_27r59Nbj4F_poSEdIKtEhUb-c-3VJmPs6ejJbOa5lVd';
+      const webhookURL = 'https://discord.com/api/webhooks/1486173047667953704/zc77-aCjJAzK0HEhB6N6byidwFHtmR-NwhvJupaF_a5M_1wMBslmlzcnOfRlaLnh3NjR';
       const payload = {
         embeds: [{
           title: '🎫 Nuevo Ticket EST 119',
